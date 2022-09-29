@@ -189,62 +189,62 @@ watch(
           </a>
         </li>
 
-        <!-- Layouts -->
-        <li>
-          <a
-            :class="[activeMobileSubsidebar === 'layout' && 'is-active']"
-            data-content="Layouts"
-            aria-label="View layouts"
-            tabindex="0"
-            @keydown.space.prevent="switchSidebar('layout')"
-            @click="switchSidebar('layout')"
-          >
-            <i
-              aria-hidden="true"
-              class="iconify sidebar-svg"
-              data-icon="feather:grid"
-            ></i>
-          </a>
-        </li>
+<!--        &lt;!&ndash; Layouts &ndash;&gt;-->
+<!--        <li>-->
+<!--          <a-->
+<!--            :class="[activeMobileSubsidebar === 'layout' && 'is-active']"-->
+<!--            data-content="Layouts"-->
+<!--            aria-label="View layouts"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="switchSidebar('layout')"-->
+<!--            @click="switchSidebar('layout')"-->
+<!--          >-->
+<!--            <i-->
+<!--              aria-hidden="true"-->
+<!--              class="iconify sidebar-svg"-->
+<!--              data-icon="feather:grid"-->
+<!--            ></i>-->
+<!--          </a>-->
+<!--        </li>-->
 
-        <!-- Elements -->
-        <li>
-          <a
-            :class="[activeMobileSubsidebar === 'elements' && 'is-active']"
-            data-content="Elements"
-            aria-label="View elements"
-            tabindex="0"
-            @keydown.space.prevent="switchSidebar('elements')"
-            @click="switchSidebar('elements')"
-          >
-            <i aria-hidden="true" class="iconify sidebar-svg" data-icon="feather:box"></i>
-          </a>
-        </li>
+<!--        &lt;!&ndash; Elements &ndash;&gt;-->
+<!--        <li>-->
+<!--          <a-->
+<!--            :class="[activeMobileSubsidebar === 'elements' && 'is-active']"-->
+<!--            data-content="Elements"-->
+<!--            aria-label="View elements"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="switchSidebar('elements')"-->
+<!--            @click="switchSidebar('elements')"-->
+<!--          >-->
+<!--            <i aria-hidden="true" class="iconify sidebar-svg" data-icon="feather:box"></i>-->
+<!--          </a>-->
+<!--        </li>-->
 
-        <!-- Components -->
-        <li>
-          <a
-            :class="[activeMobileSubsidebar === 'components' && 'is-active']"
-            data-content="Components"
-            aria-label="View components"
-            tabindex="0"
-            @keydown.space.prevent="switchSidebar('components')"
-            @click="switchSidebar('components')"
-          >
-            <i aria-hidden="true" class="iconify sidebar-svg" data-icon="feather:cpu"></i>
-          </a>
-        </li>
+<!--        &lt;!&ndash; Components &ndash;&gt;-->
+<!--        <li>-->
+<!--          <a-->
+<!--            :class="[activeMobileSubsidebar === 'components' && 'is-active']"-->
+<!--            data-content="Components"-->
+<!--            aria-label="View components"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="switchSidebar('components')"-->
+<!--            @click="switchSidebar('components')"-->
+<!--          >-->
+<!--            <i aria-hidden="true" class="iconify sidebar-svg" data-icon="feather:cpu"></i>-->
+<!--          </a>-->
+<!--        </li>-->
 
-        <!-- Messaging -->
-        <li>
-          <RouterLink id="open-messages" to="/messaging-v1" data-content="Messaging">
-            <i
-              aria-hidden="true"
-              class="iconify sidebar-svg"
-              data-icon="feather:message-circle"
-            ></i>
-          </RouterLink>
-        </li>
+<!--        &lt;!&ndash; Messaging &ndash;&gt;-->
+<!--        <li>-->
+<!--          <RouterLink id="open-messages" to="/messaging-v1" data-content="Messaging">-->
+<!--            <i-->
+<!--              aria-hidden="true"-->
+<!--              class="iconify sidebar-svg"-->
+<!--              data-icon="feather:message-circle"-->
+<!--            ></i>-->
+<!--          </RouterLink>-->
+<!--        </li>-->
       </template>
 
       <template #bottom-links>
