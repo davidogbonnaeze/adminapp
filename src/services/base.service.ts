@@ -3,7 +3,7 @@ import { useApi } from '/@src/composable/useApi'
 const api = useApi();
 
 class BaseService {
-  static post(url: string, data?: unknown) {
+  static post(url: string, data: any) {
     return api.post(`/${url}`, data)
   }
 
