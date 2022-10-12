@@ -280,7 +280,7 @@ const onRemoveFile = (error: any, fileInfo: any) => {
                     name="profile_filepond"
                     :chunk-retry-delays="[500, 1000, 3000]"
                     label-idle="<i class='lnil lnil-cloud-upload'></i>"
-                    :accepted-file-types="['image/png', 'image/jpeg', 'image/gif']"
+                    :accepted-file-types="['image/png']"
                     :drop-validation="true"
                     :image-preview-height="140"
                     :image-resize-target-width="140"

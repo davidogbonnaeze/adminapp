@@ -165,6 +165,7 @@ const createSermon = async () => {
   formData.append('series_id', addSermonFormData.series_id)
   formData.append('release_date', addSermonFormData.release_date)
   formData.append('duration', addSermonFormData.duration)
+  //TODO Handle scenario when topicList or categoryList contains only one value
   for (const topic_id of topicList.value){
     formData.append('topic_ids', topic_id)
   }
@@ -184,6 +185,7 @@ const createSermon = async () => {
     console.error(error)
   }
 }
+//TODO filter series list when a preacher is selected on the form
 </script>
 
 <template>
@@ -407,7 +409,7 @@ const createSermon = async () => {
                     name="profile_filepond"
                     :chunk-retry-delays="[500, 1000, 3000]"
                     label-idle="<i class='lnil lnil-cloud-upload'></i>"
-                    :accepted-file-types="['image/png', 'image/jpeg', 'image/gif']"
+                    :accepted-file-types="['image/png']"
                     :drop-validation="true"
                     :image-preview-height="140"
                     :image-resize-target-width="140"
