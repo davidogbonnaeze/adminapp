@@ -66,8 +66,8 @@ watch(
         </RouterLink>
 
         <div class="brand-end">
-          <NotificationsMobileDropdown />
-          <UserProfileDropdown />
+<!--          <NotificationsMobileDropdown />-->
+<!--          <UserProfileDropdown />-->
         </div>
       </template>
     </MobileNavbar>
@@ -86,65 +86,65 @@ watch(
             @keydown.space.prevent="activeMobileSubsidebar = 'dashboard'"
             @click="activeMobileSubsidebar = 'dashboard'"
           >
-            <i aria-hidden="true" class="iconify" data-icon="feather:activity"></i>
-          </a>
-        </li>
-        <li>
-          <a
-            aria-label="Display layout content"
-            :class="[activeMobileSubsidebar === 'layout' && 'is-active']"
-            tabindex="0"
-            @keydown.space.prevent="activeMobileSubsidebar = 'layout'"
-            @click="activeMobileSubsidebar = 'layout'"
-          >
             <i aria-hidden="true" class="iconify" data-icon="feather:grid"></i>
           </a>
         </li>
-        <li>
-          <a
-            aria-label="Display element content"
-            :class="[activeMobileSubsidebar === 'elements' && 'is-active']"
-            tabindex="0"
-            @keydown.space.prevent="activeMobileSubsidebar = 'elements'"
-            @click="activeMobileSubsidebar = 'elements'"
-          >
-            <i aria-hidden="true" class="iconify" data-icon="feather:box"></i>
-          </a>
-        </li>
-        <li>
-          <a
-            aria-label="Display components content"
-            :class="[activeMobileSubsidebar === 'components' && 'is-active']"
-            tabindex="0"
-            @keydown.space.prevent="activeMobileSubsidebar = 'components'"
-            @click="activeMobileSubsidebar = 'components'"
-          >
-            <i aria-hidden="true" class="iconify" data-icon="feather:cpu"></i>
-          </a>
-        </li>
-        <li>
-          <RouterLink to="/messaging-v1">
-            <i aria-hidden="true" class="iconify" data-icon="feather:message-circle"></i>
-          </RouterLink>
-        </li>
+<!--        <li>-->
+<!--          <a-->
+<!--            aria-label="Display layout content"-->
+<!--            :class="[activeMobileSubsidebar === 'layout' && 'is-active']"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="activeMobileSubsidebar = 'layout'"-->
+<!--            @click="activeMobileSubsidebar = 'layout'"-->
+<!--          >-->
+<!--            <i aria-hidden="true" class="iconify" data-icon="feather:grid"></i>-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <a-->
+<!--            aria-label="Display element content"-->
+<!--            :class="[activeMobileSubsidebar === 'elements' && 'is-active']"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="activeMobileSubsidebar = 'elements'"-->
+<!--            @click="activeMobileSubsidebar = 'elements'"-->
+<!--          >-->
+<!--            <i aria-hidden="true" class="iconify" data-icon="feather:box"></i>-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <a-->
+<!--            aria-label="Display components content"-->
+<!--            :class="[activeMobileSubsidebar === 'components' && 'is-active']"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="activeMobileSubsidebar = 'components'"-->
+<!--            @click="activeMobileSubsidebar = 'components'"-->
+<!--          >-->
+<!--            <i aria-hidden="true" class="iconify" data-icon="feather:cpu"></i>-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <RouterLink to="/messaging-v1">-->
+<!--            <i aria-hidden="true" class="iconify" data-icon="feather:message-circle"></i>-->
+<!--          </RouterLink>-->
+<!--        </li>-->
       </template>
 
       <template #bottom-links>
-        <li>
-          <a
-            aria-label="Display search panel"
-            tabindex="0"
-            @keydown.space.prevent="panels.setActive('search')"
-            @click="panels.setActive('search')"
-          >
-            <i aria-hidden="true" class="iconify" data-icon="feather:search"></i>
-          </a>
-        </li>
-        <li>
-          <a aria-label="View settings" href="#">
-            <i aria-hidden="true" class="iconify" data-icon="feather:settings"></i>
-          </a>
-        </li>
+<!--        <li>-->
+<!--          <a-->
+<!--            aria-label="Display search panel"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="panels.setActive('search')"-->
+<!--            @click="panels.setActive('search')"-->
+<!--          >-->
+<!--            <i aria-hidden="true" class="iconify" data-icon="feather:search"></i>-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <a aria-label="View settings" href="#">-->
+<!--            <i aria-hidden="true" class="iconify" data-icon="feather:settings"></i>-->
+<!--          </a>-->
+<!--        </li>-->
       </template>
     </MobileSidebar>
 
@@ -184,7 +184,7 @@ watch(
             <i
               aria-hidden="true"
               class="iconify sidebar-svg"
-              data-icon="feather:activity"
+              data-icon="feather:grid"
             ></i>
           </a>
         </li>
@@ -247,58 +247,58 @@ watch(
 <!--        </li>-->
       </template>
 
-      <template #bottom-links>
-        <!-- Switch Sidebar  Layouts -->
-        <li class="is-hidden-touch">
-          <LayoutSwitcher />
-        </li>
+<!--      <template #bottom-links>-->
+<!--        &lt;!&ndash; Switch Sidebar  Layouts &ndash;&gt;-->
+<!--        <li class="is-hidden-touch">-->
+<!--          <LayoutSwitcher />-->
+<!--        </li>-->
 
-        <!-- Search -->
-        <li class="right-panel-trigger is-hidden-touch">
-          <a
-            aria-label="Display search panel"
-            data-content="Search"
-            tabindex="0"
-            @keydown.space.prevent="panels.setActive('search')"
-            @click="panels.setActive('search')"
-          >
-            <i
-              aria-hidden="true"
-              class="iconify sidebar-svg"
-              data-icon="feather-search"
-            />
-          </a>
-          <a
-            aria-label="Close all panels"
-            class="is-hidden is-inactive"
-            tabindex="0"
-            @keydown.space.prevent="panels.close()"
-            @click="panels.close()"
-          >
-            <i aria-hidden="true" class="iconify sidebar-svg" data-icon="feather-x" />
-          </a>
-        </li>
+<!--        &lt;!&ndash; Search &ndash;&gt;-->
+<!--        <li class="right-panel-trigger is-hidden-touch">-->
+<!--          <a-->
+<!--            aria-label="Display search panel"-->
+<!--            data-content="Search"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="panels.setActive('search')"-->
+<!--            @click="panels.setActive('search')"-->
+<!--          >-->
+<!--            <i-->
+<!--              aria-hidden="true"-->
+<!--              class="iconify sidebar-svg"-->
+<!--              data-icon="feather-search"-->
+<!--            />-->
+<!--          </a>-->
+<!--          <a-->
+<!--            aria-label="Close all panels"-->
+<!--            class="is-hidden is-inactive"-->
+<!--            tabindex="0"-->
+<!--            @keydown.space.prevent="panels.close()"-->
+<!--            @click="panels.close()"-->
+<!--          >-->
+<!--            <i aria-hidden="true" class="iconify sidebar-svg" data-icon="feather-x" />-->
+<!--          </a>-->
+<!--        </li>-->
 
-        <!-- Settings -->
-        <li class="is-hidden-touch">
-          <RouterLink
-            id="open-settings"
-            to="/sidebar/layouts/profile-settings"
-            data-content="Settings"
-          >
-            <i
-              aria-hidden="true"
-              class="iconify sidebar-svg"
-              data-icon="feather:settings"
-            ></i>
-          </RouterLink>
-        </li>
+<!--        &lt;!&ndash; Settings &ndash;&gt;-->
+<!--        <li class="is-hidden-touch">-->
+<!--          <RouterLink-->
+<!--            id="open-settings"-->
+<!--            to="/sidebar/layouts/profile-settings"-->
+<!--            data-content="Settings"-->
+<!--          >-->
+<!--            <i-->
+<!--              aria-hidden="true"-->
+<!--              class="iconify sidebar-svg"-->
+<!--              data-icon="feather:settings"-->
+<!--            ></i>-->
+<!--          </RouterLink>-->
+<!--        </li>-->
 
-        <!-- Profile Dropdown -->
-        <li>
-          <UserProfileDropdown up />
-        </li>
-      </template>
+<!--        &lt;!&ndash; Profile Dropdown &ndash;&gt;-->
+<!--        <li>-->
+<!--          <UserProfileDropdown up />-->
+<!--        </li>-->
+<!--      </template>-->
     </Sidebar>
 
     <Transition name="slide-x">
@@ -356,19 +356,19 @@ watch(
               <h1 class="title is-4">{{ viewWrapper.pageTitle }}</h1>
             </div>
 
-            <Toolbar class="desktop-toolbar">
-              <ToolbarNotification />
+<!--            <Toolbar class="desktop-toolbar">-->
+<!--              <ToolbarNotification />-->
 
-              <a
-                class="toolbar-link right-panel-trigger"
-                aria-label="View activity panel"
-                tabindex="0"
-                @keydown.space.prevent="panels.setActive('activity')"
-                @click="panels.setActive('activity')"
-              >
-                <i aria-hidden="true" class="iconify" data-icon="feather:grid"></i>
-              </a>
-            </Toolbar>
+<!--              <a-->
+<!--                class="toolbar-link right-panel-trigger"-->
+<!--                aria-label="View activity panel"-->
+<!--                tabindex="0"-->
+<!--                @keydown.space.prevent="panels.setActive('activity')"-->
+<!--                @click="panels.setActive('activity')"-->
+<!--              >-->
+<!--                <i aria-hidden="true" class="iconify" data-icon="feather:grid"></i>-->
+<!--              </a>-->
+<!--            </Toolbar>-->
           </div>
 
           <slot></slot>

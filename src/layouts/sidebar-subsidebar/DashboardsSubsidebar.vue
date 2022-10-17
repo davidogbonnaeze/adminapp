@@ -6,7 +6,7 @@ const emit = defineEmits(['close'])
 <template>
   <div class="sidebar-panel is-generic">
     <div class="subpanel-header">
-      <ProjectsQuickDropdown />
+<!--      <ProjectsQuickDropdown />-->
 
       <h3 class="no-mb">Edify</h3>
       <div
