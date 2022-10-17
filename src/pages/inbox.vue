@@ -206,209 +206,209 @@ useHead({
               </div>
             </div>
             <!--Scroll menu-->
-            <div class="scroll-menu">
-              <div class="title-wrap">
-                <h3 :class="[contactSearchOpen && 'is-hidden']">Contacts</h3>
-                <div
-                  :class="[!contactSearchOpen && 'is-hidden']"
-                  class="control has-icon"
-                >
-                  <input type="text" class="input" placeholder="Search Contacts..." />
-                  <div class="form-icon">
-                    <i aria-hidden="true" class="iconify" data-icon="feather:search"></i>
-                  </div>
-                </div>
-                <a
-                  :class="[contactSearchOpen && 'is-hidden']"
-                  class="button searcv-button"
-                  aria-label="Search"
-                >
-                  <span
-                    class="icon is-small"
-                    tabindex="0"
-                    @keydown.space.prevent="contactSearchOpen = true"
-                    @click="contactSearchOpen = true"
-                  >
-                    <i aria-hidden="true" class="iconify" data-icon="feather:search"></i>
-                  </span>
-                </a>
-                <a
-                  :class="[!contactSearchOpen && 'is-hidden']"
-                  class="button cancel-searcv-button"
-                  aria-label="Close"
-                >
-                  <span
-                    class="icon is-small"
-                    tabindex="0"
-                    @keydown.space.prevent="contactSearchOpen = true"
-                    @click="contactSearchOpen = false"
-                  >
-                    <i aria-hidden="true" class="iconify" data-icon="feather:x"></i>
-                  </span>
-                </a>
-              </div>
-              <div class="contact-list has-slimscroll">
-                <!--Contact-->
-                <div class="contact-block">
-                  <img
-                    src="/demo/avatars/7.jpg"
-                    alt=""
-                    @error.once="onceImageErrored(150)"
-                  />
-                  <div class="contact-meta">
-                    <span>Alice Carasca</span>
-                    <span>alice@vuero.io</span>
-                  </div>
-                </div>
-                <!--Contact-->
-                <div class="contact-block">
-                  <img
-                    src="/demo/avatars/25.jpg"
-                    alt=""
-                    @error.once="onceImageErrored(150)"
-                  />
-                  <div class="contact-meta">
-                    <span>Melany Wallace</span>
-                    <span>melany@vuero.io</span>
-                  </div>
-                </div>
-                <!--Contact-->
-                <div class="contact-block">
-                  <img
-                    src="/demo/avatars/18.jpg"
-                    alt=""
-                    @error.once="onceImageErrored(150)"
-                  />
-                  <div class="contact-meta">
-                    <span>Esteban Castellanos</span>
-                    <span>esteban@vuero.io</span>
-                  </div>
-                </div>
-                <!--Contact-->
-                <div class="contact-block">
-                  <img
-                    src="/demo/avatars/32.jpg"
-                    alt=""
-                    @error.once="onceImageErrored(150)"
-                  />
-                  <div class="contact-meta">
-                    <span>Jonathan Krugger</span>
-                    <span>jonathan@vuero.io</span>
-                  </div>
-                </div>
-                <!--Contact-->
-                <div class="contact-block">
-                  <img
-                    src="/demo/avatars/38.jpg"
-                    alt=""
-                    @error.once="onceImageErrored(150)"
-                  />
-                  <div class="contact-meta">
-                    <span>Christie Dallas</span>
-                    <span>christie@vuero.io</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+<!--            <div class="scroll-menu">-->
+<!--              <div class="title-wrap">-->
+<!--                <h3 :class="[contactSearchOpen && 'is-hidden']">Contacts</h3>-->
+<!--                <div-->
+<!--                  :class="[!contactSearchOpen && 'is-hidden']"-->
+<!--                  class="control has-icon"-->
+<!--                >-->
+<!--                  <input type="text" class="input" placeholder="Search Contacts..." />-->
+<!--                  <div class="form-icon">-->
+<!--                    <i aria-hidden="true" class="iconify" data-icon="feather:search"></i>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <a-->
+<!--                  :class="[contactSearchOpen && 'is-hidden']"-->
+<!--                  class="button searcv-button"-->
+<!--                  aria-label="Search"-->
+<!--                >-->
+<!--                  <span-->
+<!--                    class="icon is-small"-->
+<!--                    tabindex="0"-->
+<!--                    @keydown.space.prevent="contactSearchOpen = true"-->
+<!--                    @click="contactSearchOpen = true"-->
+<!--                  >-->
+<!--                    <i aria-hidden="true" class="iconify" data-icon="feather:search"></i>-->
+<!--                  </span>-->
+<!--                </a>-->
+<!--                <a-->
+<!--                  :class="[!contactSearchOpen && 'is-hidden']"-->
+<!--                  class="button cancel-searcv-button"-->
+<!--                  aria-label="Close"-->
+<!--                >-->
+<!--                  <span-->
+<!--                    class="icon is-small"-->
+<!--                    tabindex="0"-->
+<!--                    @keydown.space.prevent="contactSearchOpen = true"-->
+<!--                    @click="contactSearchOpen = false"-->
+<!--                  >-->
+<!--                    <i aria-hidden="true" class="iconify" data-icon="feather:x"></i>-->
+<!--                  </span>-->
+<!--                </a>-->
+<!--              </div>-->
+<!--              <div class="contact-list has-slimscroll">-->
+<!--                &lt;!&ndash;Contact&ndash;&gt;-->
+<!--                <div class="contact-block">-->
+<!--&lt;!&ndash;                  <img&ndash;&gt;-->
+<!--&lt;!&ndash;                    src="/demo/avatars/7.jpg"&ndash;&gt;-->
+<!--&lt;!&ndash;                    alt=""&ndash;&gt;-->
+<!--&lt;!&ndash;                    @error.once="onceImageErrored(150)"&ndash;&gt;-->
+<!--&lt;!&ndash;                  />&ndash;&gt;-->
+<!--                  <div class="contact-meta">-->
+<!--                    <span>Alice Carasca</span>-->
+<!--                    <span>alice@vuero.io</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;Contact&ndash;&gt;-->
+<!--                <div class="contact-block">-->
+<!--                  <img-->
+<!--                    src="/demo/avatars/25.jpg"-->
+<!--                    alt=""-->
+<!--                    @error.once="onceImageErrored(150)"-->
+<!--                  />-->
+<!--                  <div class="contact-meta">-->
+<!--                    <span>Melany Wallace</span>-->
+<!--                    <span>melany@vuero.io</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;Contact&ndash;&gt;-->
+<!--                <div class="contact-block">-->
+<!--                  <img-->
+<!--                    src="/demo/avatars/18.jpg"-->
+<!--                    alt=""-->
+<!--                    @error.once="onceImageErrored(150)"-->
+<!--                  />-->
+<!--                  <div class="contact-meta">-->
+<!--                    <span>Esteban Castellanos</span>-->
+<!--                    <span>esteban@vuero.io</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;Contact&ndash;&gt;-->
+<!--                <div class="contact-block">-->
+<!--                  <img-->
+<!--                    src="/demo/avatars/32.jpg"-->
+<!--                    alt=""-->
+<!--                    @error.once="onceImageErrored(150)"-->
+<!--                  />-->
+<!--                  <div class="contact-meta">-->
+<!--                    <span>Jonathan Krugger</span>-->
+<!--                    <span>jonathan@vuero.io</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;Contact&ndash;&gt;-->
+<!--                <div class="contact-block">-->
+<!--                  <img-->
+<!--                    src="/demo/avatars/38.jpg"-->
+<!--                    alt=""-->
+<!--                    @error.once="onceImageErrored(150)"-->
+<!--                  />-->
+<!--                  <div class="contact-meta">-->
+<!--                    <span>Christie Dallas</span>-->
+<!--                    <span>christie@vuero.io</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
         </div>
 
-        <!--Messages list-->
-        <div class="inbox-messages">
-          <div class="header-area">
-            <div class="actions">
-              <a
-                class="inbox-action mobile-menu-action"
-                aria-label="Open messages list"
-                tabindex="0"
-                @keydown.space.prevent="mobileSidebarOpen = true"
-                @click="mobileSidebarOpen = true"
-              >
-                <i
-                  aria-hidden="true"
-                  class="iconify"
-                  data-icon="feather:chevron-right"
-                ></i>
-              </a>
-              <a
-                class="inbox-action check-all-action"
-                :class="[isAllChecked && 'is-checked']"
-                aria-label="Toggle selection"
-                tabindex="0"
-                @keydown.space.prevent="toggleSelection"
-                @click="toggleSelection"
-              >
-                <i aria-hidden="true" class="iconify" data-icon="feather:check"></i>
-              </a>
-            </div>
-            <div class="actions">
-              <div class="control inbox-search has-icon">
-                <input
-                  type="text"
-                  class="input is-rounded"
-                  placeholder="Search Inbox..."
-                />
-                <div class="form-icon">
-                  <i aria-hidden="true" class="iconify" data-icon="feather:search"></i>
-                </div>
-              </div>
+<!--        &lt;!&ndash;Messages list&ndash;&gt;-->
+<!--        <div class="inbox-messages">-->
+<!--          <div class="header-area">-->
+<!--            <div class="actions">-->
+<!--              <a-->
+<!--                class="inbox-action mobile-menu-action"-->
+<!--                aria-label="Open messages list"-->
+<!--                tabindex="0"-->
+<!--                @keydown.space.prevent="mobileSidebarOpen = true"-->
+<!--                @click="mobileSidebarOpen = true"-->
+<!--              >-->
+<!--                <i-->
+<!--                  aria-hidden="true"-->
+<!--                  class="iconify"-->
+<!--                  data-icon="feather:chevron-right"-->
+<!--                ></i>-->
+<!--              </a>-->
+<!--              <a-->
+<!--                class="inbox-action check-all-action"-->
+<!--                :class="[isAllChecked && 'is-checked']"-->
+<!--                aria-label="Toggle selection"-->
+<!--                tabindex="0"-->
+<!--                @keydown.space.prevent="toggleSelection"-->
+<!--                @click="toggleSelection"-->
+<!--              >-->
+<!--                <i aria-hidden="true" class="iconify" data-icon="feather:check"></i>-->
+<!--              </a>-->
+<!--            </div>-->
+<!--            <div class="actions">-->
+<!--              <div class="control inbox-search has-icon">-->
+<!--                <input-->
+<!--                  type="text"-->
+<!--                  class="input is-rounded"-->
+<!--                  placeholder="Search Inbox..."-->
+<!--                />-->
+<!--                <div class="form-icon">-->
+<!--                  <i aria-hidden="true" class="iconify" data-icon="feather:search"></i>-->
+<!--                </div>-->
+<!--              </div>-->
 
-              <div
-                ref="dropdownElement2"
-                class="dropdown inbox-dropdown dropdown-trigger is-right"
-              >
-                <div>
-                  <button class="button" @click="dropdown2.toggle">
-                    <span class="icon is-small">
-                      <i
-                        aria-hidden="true"
-                        class="iconify"
-                        data-icon="feather:more-vertical"
-                      ></i>
-                    </span>
-                  </button>
-                </div>
-                <div class="dropdown-menu">
-                  <div class="dropdown-content">
-                    <a class="dropdown-item">
-                      <i aria-hidden="true" class="iconify" data-icon="feather:check"></i>
-                      <span>Mark all as read</span>
-                    </a>
-                    <a class="dropdown-item">
-                      <i
-                        aria-hidden="true"
-                        class="iconify"
-                        data-icon="feather:eye-off"
-                      ></i>
-                      <span>Hide read</span>
-                    </a>
-                    <hr class="dropdown-divider" />
-                    <a class="dropdown-item">
-                      <i
-                        aria-hidden="true"
-                        class="iconify"
-                        data-icon="feather:calendar"
-                      ></i>
-                      <span>Sort by date</span>
-                    </a>
-                    <a class="dropdown-item">
-                      <i aria-hidden="true" class="iconify" data-icon="feather:user"></i>
-                      <span>Sort by user</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--Messages-->
-          <div class="messages-list has-slimscroll">
-            <!--messages list partial-->
-            <InboxMessagesList
-              v-model:conversationId="selectedConversationId"
-              v-model:selectedConversationList="selectedConversationList"
-            />
-          </div>
-        </div>
+<!--              <div-->
+<!--                ref="dropdownElement2"-->
+<!--                class="dropdown inbox-dropdown dropdown-trigger is-right"-->
+<!--              >-->
+<!--                <div>-->
+<!--                  <button class="button" @click="dropdown2.toggle">-->
+<!--                    <span class="icon is-small">-->
+<!--                      <i-->
+<!--                        aria-hidden="true"-->
+<!--                        class="iconify"-->
+<!--                        data-icon="feather:more-vertical"-->
+<!--                      ></i>-->
+<!--                    </span>-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--                <div class="dropdown-menu">-->
+<!--                  <div class="dropdown-content">-->
+<!--                    <a class="dropdown-item">-->
+<!--                      <i aria-hidden="true" class="iconify" data-icon="feather:check"></i>-->
+<!--                      <span>Mark all as read</span>-->
+<!--                    </a>-->
+<!--                    <a class="dropdown-item">-->
+<!--                      <i-->
+<!--                        aria-hidden="true"-->
+<!--                        class="iconify"-->
+<!--                        data-icon="feather:eye-off"-->
+<!--                      ></i>-->
+<!--                      <span>Hide read</span>-->
+<!--                    </a>-->
+<!--                    <hr class="dropdown-divider" />-->
+<!--                    <a class="dropdown-item">-->
+<!--                      <i-->
+<!--                        aria-hidden="true"-->
+<!--                        class="iconify"-->
+<!--                        data-icon="feather:calendar"-->
+<!--                      ></i>-->
+<!--                      <span>Sort by date</span>-->
+<!--                    </a>-->
+<!--                    <a class="dropdown-item">-->
+<!--                      <i aria-hidden="true" class="iconify" data-icon="feather:user"></i>-->
+<!--                      <span>Sort by user</span>-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;Messages&ndash;&gt;-->
+<!--          <div class="messages-list has-slimscroll">-->
+<!--            &lt;!&ndash;messages list partial&ndash;&gt;-->
+<!--            <InboxMessagesList-->
+<!--              v-model:conversationId="selectedConversationId"-->
+<!--              v-model:selectedConversationList="selectedConversationList"-->
+<!--            />-->
+<!--          </div>-->
+<!--        </div>-->
 
         <!--Loader-->
         <div class="inbox-message-overlay">
