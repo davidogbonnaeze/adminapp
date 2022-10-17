@@ -3,127 +3,127 @@ import { onceImageErrored } from '/@src/utils/via-placeholder'
 </script>
 
 <template>
-  <div class="dashboard-header-wrapper">
-    <div class="dashboard-header">
-      <div class="avatar-container">
-        <img
-          src="/demo/photos/faces/girl1.jpg"
-          alt=""
-          @error.once="onceImageErrored(150)"
-        />
-        <button class="button is-circle">
-          <span class="icon is-small">
-            <i aria-hidden="true" class="iconify" data-icon="feather:plus"></i>
-          </span>
-        </button>
-      </div>
-      <div class="header-meta">
-        <div class="username-wrap">
-          <div class="username">
-            <h3>
-              <span>sweet_candy13</span>
-              <i aria-hidden="true" class="fas fa-star"></i>
-            </h3>
-            <span>Clarissa Geller</span>
-          </div>
-          <div class="badges">
-            <VTag rounded color="info" label="Music" />
-            <VTag rounded color="primary" label="Lifestyle" />
-          </div>
-        </div>
-        <div class="meta-stats">
-          <div class="meta-stat">
-            <span>1247</span>
-            <span>Posts</span>
-          </div>
-          <div class="meta-stat">
-            <span>38.3K</span>
-            <span>Followers</span>
-          </div>
-          <div class="meta-stat">
-            <span>329</span>
-            <span>Following</span>
-          </div>
-        </div>
-        <div class="meta-description">
-          <p>
-            Artist, musician, songwriter, influencer, these are the many names people give
-            me. But for you Iam simply Clarissa. *Forever with all my friends* // Latest
-            video can be found here youtu.be/8Tcee5Cyz
-          </p>
-        </div>
-        <div class="meta-achievements">
-          <div>
-            <Tippy>
-              <div class="meta-achievement is-danger">
-                <i aria-hidden="true" class="fas fa-fire"></i>
-              </div>
-              <template #content>
-                <div class="v-popover-content is-text">
-                  <div class="popover-head">
-                    <VIconBox size="small" color="danger">
-                      <i aria-hidden="true" class="fas fa-fire"></i>
-                    </VIconBox>
-                    <h4 class="dark-inverted">On Fire</h4>
-                  </div>
-                  <div class="popover-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </div>
-                </div>
-              </template>
-            </Tippy>
-          </div>
+<!--  <div class="dashboard-header-wrapper">-->
+<!--    <div class="dashboard-header">-->
+<!--      <div class="avatar-container">-->
+<!--        <img-->
+<!--          src="/demo/photos/faces/girl1.jpg"-->
+<!--          alt=""-->
+<!--          @error.once="onceImageErrored(150)"-->
+<!--        />-->
+<!--        <button class="button is-circle">-->
+<!--          <span class="icon is-small">-->
+<!--            <i aria-hidden="true" class="iconify" data-icon="feather:plus"></i>-->
+<!--          </span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="header-meta">-->
+<!--        <div class="username-wrap">-->
+<!--          <div class="username">-->
+<!--            <h3>-->
+<!--              <span>sweet_candy13</span>-->
+<!--              <i aria-hidden="true" class="fas fa-star"></i>-->
+<!--            </h3>-->
+<!--            <span>Clarissa Geller</span>-->
+<!--          </div>-->
+<!--          <div class="badges">-->
+<!--            <VTag rounded color="info" label="Music" />-->
+<!--            <VTag rounded color="primary" label="Lifestyle" />-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="meta-stats">-->
+<!--          <div class="meta-stat">-->
+<!--            <span>1247</span>-->
+<!--            <span>Posts</span>-->
+<!--          </div>-->
+<!--          <div class="meta-stat">-->
+<!--            <span>38.3K</span>-->
+<!--            <span>Followers</span>-->
+<!--          </div>-->
+<!--          <div class="meta-stat">-->
+<!--            <span>329</span>-->
+<!--            <span>Following</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="meta-description">-->
+<!--          <p>-->
+<!--            Artist, musician, songwriter, influencer, these are the many names people give-->
+<!--            me. But for you Iam simply Clarissa. *Forever with all my friends* // Latest-->
+<!--            video can be found here youtu.be/8Tcee5Cyz-->
+<!--          </p>-->
+<!--        </div>-->
+<!--        <div class="meta-achievements">-->
+<!--          <div>-->
+<!--            <Tippy>-->
+<!--              <div class="meta-achievement is-danger">-->
+<!--                <i aria-hidden="true" class="fas fa-fire"></i>-->
+<!--              </div>-->
+<!--              <template #content>-->
+<!--                <div class="v-popover-content is-text">-->
+<!--                  <div class="popover-head">-->
+<!--                    <VIconBox size="small" color="danger">-->
+<!--                      <i aria-hidden="true" class="fas fa-fire"></i>-->
+<!--                    </VIconBox>-->
+<!--                    <h4 class="dark-inverted">On Fire</h4>-->
+<!--                  </div>-->
+<!--                  <div class="popover-body">-->
+<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </Tippy>-->
+<!--          </div>-->
 
-          <div>
-            <Tippy>
-              <div class="meta-achievement is-primary">
-                <i aria-hidden="true" class="fas fa-medal"></i>
-              </div>
-              <template #content>
-                <div class="v-popover-content is-text">
-                  <div class="popover-head">
-                    <VIconBox size="small" color="primary">
-                      <i aria-hidden="true" class="fas fa-medal"></i>
-                    </VIconBox>
-                    <h4 class="dark-inverted">Post Veteran</h4>
-                  </div>
-                  <div class="popover-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </div>
-                </div>
-              </template>
-            </Tippy>
-          </div>
+<!--          <div>-->
+<!--            <Tippy>-->
+<!--              <div class="meta-achievement is-primary">-->
+<!--                <i aria-hidden="true" class="fas fa-medal"></i>-->
+<!--              </div>-->
+<!--              <template #content>-->
+<!--                <div class="v-popover-content is-text">-->
+<!--                  <div class="popover-head">-->
+<!--                    <VIconBox size="small" color="primary">-->
+<!--                      <i aria-hidden="true" class="fas fa-medal"></i>-->
+<!--                    </VIconBox>-->
+<!--                    <h4 class="dark-inverted">Post Veteran</h4>-->
+<!--                  </div>-->
+<!--                  <div class="popover-body">-->
+<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </Tippy>-->
+<!--          </div>-->
 
-          <div>
-            <Tippy>
-              <div class="meta-achievement is-yellow">
-                <i aria-hidden="true" class="fas fa-trophy"></i>
-              </div>
-              <template #content>
-                <div class="v-popover-content is-text">
-                  <div class="popover-head">
-                    <VIconBox size="small" color="yellow">
-                      <i aria-hidden="true" class="fas fa-medal"></i>
-                    </VIconBox>
-                    <h4 class="dark-inverted">Social Champion</h4>
-                  </div>
-                  <div class="popover-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </div>
-                </div>
-              </template>
-            </Tippy>
-          </div>
-        </div>
-      </div>
+<!--          <div>-->
+<!--            <Tippy>-->
+<!--              <div class="meta-achievement is-yellow">-->
+<!--                <i aria-hidden="true" class="fas fa-trophy"></i>-->
+<!--              </div>-->
+<!--              <template #content>-->
+<!--                <div class="v-popover-content is-text">-->
+<!--                  <div class="popover-head">-->
+<!--                    <VIconBox size="small" color="yellow">-->
+<!--                      <i aria-hidden="true" class="fas fa-medal"></i>-->
+<!--                    </VIconBox>-->
+<!--                    <h4 class="dark-inverted">Social Champion</h4>-->
+<!--                  </div>-->
+<!--                  <div class="popover-body">-->
+<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </Tippy>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="end">
-        <!--Dropdown-->
-        <InfluencerDropdown />
-      </div>
-    </div>
-  </div>
+<!--      <div class="end">-->
+<!--        &lt;!&ndash;Dropdown&ndash;&gt;-->
+<!--        <InfluencerDropdown />-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <style lang="scss">

@@ -6,136 +6,136 @@ const chat = useChat()
 </script>
 
 <template>
-  <div
-    :class="[chat.mobileConversationDetailsOpen && 'is-mobile-active']"
-    class="chat-side"
-  >
-    <div class="chat-side-header">
-      <MessagingToolbar @close="chat.setMobileConversationDetailsOpen(false)" />
-    </div>
+<!--  <div-->
+<!--    :class="[chat.mobileConversationDetailsOpen && 'is-mobile-active']"-->
+<!--    class="chat-side"-->
+<!--  >-->
+<!--    <div class="chat-side-header">-->
+<!--      <MessagingToolbar @close="chat.setMobileConversationDetailsOpen(false)" />-->
+<!--    </div>-->
 
-    <div class="chat-side-content is-single">
-      <div class="user-pic">
-        <img
-          id="user-details-image"
-          :src="chat.selectedConversation.avatar"
-          alt=""
-          @error="onceImageErrored(150)"
-        />
-        <img
-          id="user-details-badge"
-          class="is-badge"
-          src="/images/icons/flags/united-states-of-america.svg"
-          alt=""
-          @error.once="onceImageErrored(150)"
-        />
-      </div>
-      <h4 v-if="chat.selectedConversation.name" class="user-name">
-        {{ chat.selectedConversation.name }}
-      </h4>
-      <p v-if="chat.selectedConversation.lastMessage" class="user-job-title">
-        {{ chat.selectedConversation.lastMessage }}
-      </p>
+<!--    <div class="chat-side-content is-single">-->
+<!--      <div class="user-pic">-->
+<!--        <img-->
+<!--          id="user-details-image"-->
+<!--          :src="chat.selectedConversation.avatar"-->
+<!--          alt=""-->
+<!--          @error="onceImageErrored(150)"-->
+<!--        />-->
+<!--        <img-->
+<!--          id="user-details-badge"-->
+<!--          class="is-badge"-->
+<!--          src="/images/icons/flags/united-states-of-america.svg"-->
+<!--          alt=""-->
+<!--          @error.once="onceImageErrored(150)"-->
+<!--        />-->
+<!--      </div>-->
+<!--      <h4 v-if="chat.selectedConversation.name" class="user-name">-->
+<!--        {{ chat.selectedConversation.name }}-->
+<!--      </h4>-->
+<!--      <p v-if="chat.selectedConversation.lastMessage" class="user-job-title">-->
+<!--        {{ chat.selectedConversation.lastMessage }}-->
+<!--      </p>-->
 
-      <div class="side-actions">
-        <a class="button v-button is-rounded">
-          <span class="icon is-small">
-            <i aria-hidden="true" class="fas fa-phone"></i>
-          </span>
-          <span>Audio Call</span>
-        </a>
-        <a class="button v-button is-rounded">
-          <span class="icon is-small">
-            <i aria-hidden="true" class="fas fa-video"></i>
-          </span>
-          <span>Video Call</span>
-        </a>
-      </div>
+<!--      <div class="side-actions">-->
+<!--        <a class="button v-button is-rounded">-->
+<!--          <span class="icon is-small">-->
+<!--            <i aria-hidden="true" class="fas fa-phone"></i>-->
+<!--          </span>-->
+<!--          <span>Audio Call</span>-->
+<!--        </a>-->
+<!--        <a class="button v-button is-rounded">-->
+<!--          <span class="icon is-small">-->
+<!--            <i aria-hidden="true" class="fas fa-video"></i>-->
+<!--          </span>-->
+<!--          <span>Video Call</span>-->
+<!--        </a>-->
+<!--      </div>-->
 
-      <div class="detail-photos">
-        <div class="detail-photo-title">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-image"
-          >
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <path d="M21 15l-5-5L5 21"></path>
-          </svg>
-          Shared photos
-        </div>
-        <div class="detail-photo-grid">
-          <img
-            src="/demo/photos/demo-apps/1.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/2.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/3.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/4.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/5.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/6.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/7.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/8.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/9.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/10.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/11.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-          <img
-            src="/demo/photos/demo-apps/12.jpg"
-            alt=""
-            @error.once="onceImageErrored(1600, 900)"
-          />
-        </div>
-        <a class="view-more">View More</a>
-      </div>
-    </div>
-  </div>
+<!--      <div class="detail-photos">-->
+<!--        <div class="detail-photo-title">-->
+<!--          <svg-->
+<!--            xmlns="http://www.w3.org/2000/svg"-->
+<!--            viewBox="0 0 24 24"-->
+<!--            fill="none"-->
+<!--            stroke="currentColor"-->
+<!--            stroke-width="2"-->
+<!--            stroke-linecap="round"-->
+<!--            stroke-linejoin="round"-->
+<!--            class="feather feather-image"-->
+<!--          >-->
+<!--            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>-->
+<!--            <circle cx="8.5" cy="8.5" r="1.5"></circle>-->
+<!--            <path d="M21 15l-5-5L5 21"></path>-->
+<!--          </svg>-->
+<!--          Shared photos-->
+<!--        </div>-->
+<!--        <div class="detail-photo-grid">-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/1.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/2.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/3.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/4.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/5.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/6.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/7.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/8.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/9.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/10.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/11.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--          <img-->
+<!--            src="/demo/photos/demo-apps/12.jpg"-->
+<!--            alt=""-->
+<!--            @error.once="onceImageErrored(1600, 900)"-->
+<!--          />-->
+<!--        </div>-->
+<!--        <a class="view-more">View More</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <style lang="scss">

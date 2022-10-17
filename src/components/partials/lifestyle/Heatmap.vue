@@ -6,11 +6,11 @@ import { onceImageErrored } from '/@src/utils/via-placeholder'
   <div class="heatmap-wrapper">
     <div class="heatmap-title">
       <div class="title-avatar">
-        <img
-          src="/demo/photos/faces/girl1.jpg"
-          alt=""
-          @error.once="onceImageErrored(150)"
-        />
+<!--        <img-->
+<!--          src="/demo/photos/faces/girl1.jpg"-->
+<!--          alt=""-->
+<!--          @error.once="onceImageErrored(150)"-->
+<!--        />-->
       </div>
       <div class="title-meta">
         <p>
