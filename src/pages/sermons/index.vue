@@ -31,7 +31,6 @@ const addSermonFormData = reactive({
   preacher_id: null as any,
   sermon_image: null as any,
   release_date: null as any,
-  duration: null as any,
   series_id: null as any,
   category_ids: null as any,
   topic_ids: null as any,
@@ -148,7 +147,6 @@ const resetFormData = () => {
   addSermonFormData.sermon_image = null
   addSermonFormData.release_date = null
   addSermonFormData.sermon_file = null
-  addSermonFormData.duration = null
   addSermonFormData.series_id = null
   addSermonFormData.preacher_id = null
   addSermonFormData.category_ids = null
@@ -164,7 +162,6 @@ const createSermon = async () => {
   formData.append('preacher_id', addSermonFormData.preacher_id)
   formData.append('series_id', addSermonFormData.series_id)
   formData.append('release_date', addSermonFormData.release_date)
-  formData.append('duration', addSermonFormData.duration)
   //TODO Handle scenario when topicList or categoryList contains only one value
   for (const topic_id of topicList.value){
     formData.append('topic_ids', topic_id)
@@ -445,13 +442,6 @@ const createSermon = async () => {
                     @addfile="onAddSermonFile"
                     @removefile="onRemoveSermonFile"
                   />
-                </VControl>
-              </VField>
-            </div>
-            <div class="column is-12">
-              <VField label="Sermon Duration *">
-                <VControl>
-                  <VInput v-model="addSermonFormData.duration" type="number"  placeholder="Ex: 1200" />
                 </VControl>
               </VField>
             </div>
