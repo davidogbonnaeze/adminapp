@@ -160,7 +160,9 @@ const createSermon = async () => {
   formData.append('sermon_image', addSermonFormData.sermon_image)
   formData.append('title', addSermonFormData.title)
   formData.append('preacher_id', addSermonFormData.preacher_id)
-  formData.append('series_id', addSermonFormData.series_id)
+  if (addSermonFormData.series_id != null){
+    formData.append('series_id', addSermonFormData.series_id)
+  }
   formData.append('release_date', addSermonFormData.release_date)
   //TODO Handle scenario when topicList or categoryList contains only one value
   for (const topic_id of topicList.value){
