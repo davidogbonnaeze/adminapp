@@ -160,12 +160,6 @@ const onRemoveFile = (error: any, fileInfo: any) => {
             <td>
               <div class="flex-media">
                 <VAvatar :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + preacher.image_url " size="medium" />
-<!--                <img class="file-icon" :src="'https://d1zuqyxxudi0k.cloudfront.net/' + preacher.image_url" alt="" />-->
-
-<!--                <div class="metax">-->
-<!--                  insert ministry here-->
-<!--                  <span>{{ row[6] }}</span>-->
-<!--                </div>-->
               </div>
             </td>
             <td>

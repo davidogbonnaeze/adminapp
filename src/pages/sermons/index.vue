@@ -254,10 +254,12 @@ const createSermon = async () => {
               <span class="has-dark-text dark-inverted is-font-alt is-weight-600 rem-90">{{sermon.title}}</span>
             </td>
             <td>
-              <span class="light-text">{{sermon.image_url}}</span>
+              <div class="flex-media">
+                <VAvatar :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + sermon.image_url " size="medium" />
+              </div>
             </td>
             <td >
-              <span class="light-text">{{ sermon.audio_url}}</span>
+              <a class="light-text" target="_blank" :href="'https://d2yydbsh2h36dh.cloudfront.net/' + sermon.audio_url.slice(0, -4) + '_playlist.m3u8'">{{ sermon.audio_url.slice(0, -4)}}</a>
             </td>
             <td>
               <span class="light-text">{{ sermon.release_date}}</span>
@@ -269,7 +271,7 @@ const createSermon = async () => {
               <span class="light-text">{{ sermon.preacher.name }}</span>
             </td>
             <td>
-              <span class="light-text">{{ sermon.series.title }}</span>
+              <span class="light-text">{{ sermon.series?.title }}</span>
             </td>
             <td>
               <span class="light-text">{{ moment(sermon.updated_at).format("YYYY-MM-DD") }}</span>
