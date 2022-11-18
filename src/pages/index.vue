@@ -28,7 +28,7 @@ const handleLogin = async () => {
       password: loginFormData.password
     }
 
-    const response = await  AuthService.login(payload);
+    const response = await AuthService.login(payload);
     const accessToken = response.data.data;
     userSession.setToken(accessToken)
 
