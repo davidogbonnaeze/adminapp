@@ -4,9 +4,9 @@ import { useHead } from '@vueuse/head'
 import { useDarkmode } from '/@src/stores/darkmode'
 import { useUserSession } from '/@src/stores/userSession'
 import { useNotyf } from '/@src/composable/useNotyf'
-import sleep from '/@src/utils/sleep'
-import {reactive} from "vue";
-import {AuthService} from "/@src/services/auth.service";
+import { reactive } from 'vue'
+import { AuthService } from '/@src/services/auth.service'
+import axios from 'axios'
 
 const isLoading = ref(false)
 const darkmode = useDarkmode()
@@ -25,11 +25,13 @@ const handleLogin = async () => {
     isLoading.value = true
     const payload = {
       email: loginFormData.email,
-      password: loginFormData.password
+      password: loginFormData.password,
     }
 
-    const response = await AuthService.login(payload);
-    const accessToken = response.data.data;
+    const response = await AuthService.login(payload)
+    const accessToken = response.data.data
+    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
+    console.log(accessToken, 'accessToken')
     userSession.setToken(accessToken)
 
     notif.dismissAll()
@@ -59,7 +61,7 @@ useHead({
       <div class="left"></div>
       <div class="center">
         <RouterLink to="/" class="header-item">
-          <img src="/images/logos/logo/edify.svg" alt="" width="50px" height="50px" >
+          <img src="/images/logos/logo/edify.svg" alt="" width="50px" height="50px" />
         </RouterLink>
       </div>
       <div class="right">
@@ -94,26 +96,31 @@ useHead({
             <div class="login-form">
               <VField>
                 <VControl icon="feather:user">
-                  <VInput type="text" v-model="loginFormData.email" placeholder="Email" autocomplete="email" />
+                  <VInput
+                    v-model="loginFormData.email"
+                    type="text"
+                    placeholder="Email"
+                    autocomplete="email"
+                  />
                 </VControl>
               </VField>
               <VField>
                 <VControl icon="feather:lock">
                   <VInput
-                    type="password"
                     v-model="loginFormData.password"
+                    type="password"
                     placeholder="Password"
                     autocomplete="current-password"
                   />
                 </VControl>
               </VField>
 
-<!--              &lt;!&ndash; Switch &ndash;&gt;-->
-<!--              <VField>-->
-<!--                <VControl class="setting-item">-->
-<!--                  <VCheckbox label="Remember me" color="primary" paddingless />-->
-<!--                </VControl>-->
-<!--              </VField>-->
+              <!--              &lt;!&ndash; Switch &ndash;&gt;-->
+              <!--              <VField>-->
+              <!--                <VControl class="setting-item">-->
+              <!--                  <VCheckbox label="Remember me" color="primary" paddingless />-->
+              <!--                </VControl>-->
+              <!--              </VField>-->
 
               <!-- Submit -->
               <div class="login" style="padding-top: 20px">
