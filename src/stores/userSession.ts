@@ -1,46 +1,41 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import { useStorage } from '@vueuse/core'
 
-export type UserData = Record<string, any> | null
+export interface AuthState {
+  token: any
+  isLoggedIn: boolean
+  loading: boolean
+  user: Record<string, never>
+}
 
-export const useUserSession = defineStore('userSession', () => {
-  // token will be synced with local storage
-  // @see https://vueuse.org/core/usestorage/
-  const token = useStorage('token', '')
-
-  const user = ref<Partial<UserData>>()
-  const loading = ref(true)
-
-  const isLoggedIn = computed(() => token.value !== undefined && token.value !== '')
-
-  function setUser(newUser: Partial<UserData>) {
-    user.value = newUser
-  }
-
-  function setToken(newToken: string) {
-    token.value = newToken
-  }
-
-  function setLoading(newLoading: boolean) {
-    loading.value = newLoading
-  }
-
-  async function logoutUser() {
-    token.value = undefined
-    user.value = undefined
-  }
-
-  return {
-    user,
-    token,
-    isLoggedIn,
-    loading,
-    logoutUser,
-    setUser,
-    setToken,
-    setLoading,
-  } as const
+export const useUserSession = defineStore('userSession', {
+  state: (): AuthState => ({
+    token: undefined,
+    isLoggedIn: false,
+    user: {},
+    loading: false,
+  }),
+  getters: {
+    getToken: (state) => state.token,
+    getUser: (state) => state.user,
+  },
+  actions: {
+    setToken(token: string) {
+      this.token = token
+      this.isLoggedIn = true
+    },
+    setUser(user: Record<string, never>) {
+      this.user = user
+    },
+    setLoading(isLoadingValue: boolean) {
+      this.loading = isLoadingValue
+    },
+    logoutUser() {
+      this.token = undefined
+      this.isLoggedIn = false
+      this.user = {}
+    },
+  },
+  persist: true,
 })
 
 /**
