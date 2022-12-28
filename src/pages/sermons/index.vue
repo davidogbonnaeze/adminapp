@@ -1,20 +1,19 @@
 <script setup lang="ts">
-
 import { useHead } from '@vueuse/head'
 import { useViewWrapper } from '/@src/stores/viewWrapper'
-import {onMounted, reactive, ref} from "vue";
-import type {Sermon} from "/@src/interfaces/sermon";
-import {SermonService} from "/@src/services/sermon.service";
-import {Notyf} from "notyf";
-import moment from "moment";
-import {PreacherService} from "/@src/services/preacher.service";
-import type {Series} from "/@src/interfaces/series";
-import type {Preacher} from "/@src/interfaces/preacher";
-import {SeriesService} from "/@src/services/series.service";
-import type {Category} from "/@src/interfaces/category";
-import type {Topic} from "/@src/interfaces/topic";
-import {CategoryService} from "/@src/services/category.service";
-import {TopicService} from "/@src/services/topic.service";
+import { onMounted, reactive, ref } from 'vue'
+import type { Sermon } from '/@src/interfaces/sermon'
+import { SermonService } from '/@src/services/sermon.service'
+import { Notyf } from 'notyf'
+import moment from 'moment'
+import { PreacherService } from '/@src/services/preacher.service'
+import type { Series } from '/@src/interfaces/series'
+import type { Preacher } from '/@src/interfaces/preacher'
+import { SeriesService } from '/@src/services/series.service'
+import type { Category } from '/@src/interfaces/category'
+import type { Topic } from '/@src/interfaces/topic'
+import { CategoryService } from '/@src/services/category.service'
+import { TopicService } from '/@src/services/topic.service'
 
 const notyf = new Notyf()
 const sermons = ref<Sermon[]>([])
@@ -41,11 +40,11 @@ const viewWrapper = useViewWrapper()
 viewWrapper.setPageTitle('Sermons')
 
 onMounted(() => {
-  fetchPreachers();
-  fetchSeries();
-  fetchCategories();
-  fetchTopics();
-  fetchSermons();
+  fetchPreachers()
+  fetchSeries()
+  fetchCategories()
+  fetchTopics()
+  fetchSermons()
 })
 
 useHead({
@@ -56,7 +55,7 @@ const fetchSermons = async () => {
   try {
     const response = await SermonService.getSermons()
     sermons.value = response.data.data
-    tableLoading.value = false;
+    tableLoading.value = false
   } catch (error) {
     console.error(error)
   }
@@ -98,8 +97,6 @@ const fetchSeries = async () => {
   }
 }
 
-
-
 const onAddSermonFile = (error: any, fileInfo: any) => {
   if (error) {
     console.error(error)
@@ -109,7 +106,6 @@ const onAddSermonFile = (error: any, fileInfo: any) => {
   const _file = fileInfo.file as File
   console.log(_file.type)
   if (_file) {
-
     addSermonFormData.sermon_file = _file
   }
 }
@@ -126,20 +122,20 @@ const onAddSermonImage = (error: any, fileInfo: any) => {
   }
 }
 
-const onRemoveSermonFile = (error: any, fileInfo: any) => {
+const onRemoveSermonFile = (error: any) => {
   if (error) {
     console.error(error)
     return
   }
-  addSermonFormData.sermon_file = null;
+  addSermonFormData.sermon_file = null
 }
 
-const onRemoveSermonImage = (error: any, fileInfo: any) => {
+const onRemoveSermonImage = (error: any) => {
   if (error) {
     console.error(error)
     return
   }
-  addSermonFormData.sermon_image = null;
+  addSermonFormData.sermon_image = null
 }
 
 const resetFormData = () => {
@@ -154,33 +150,33 @@ const resetFormData = () => {
 }
 
 const createSermon = async () => {
-  saveButtonLoading.value = true;
-  const formData = new FormData();
+  saveButtonLoading.value = true
+  const formData = new FormData()
   formData.append('sermon_file', addSermonFormData.sermon_file)
   formData.append('sermon_image', addSermonFormData.sermon_image)
   formData.append('title', addSermonFormData.title)
   formData.append('preacher_id', addSermonFormData.preacher_id)
-  if (addSermonFormData.series_id != null){
+  if (addSermonFormData.series_id != null) {
     formData.append('series_id', addSermonFormData.series_id)
   }
   formData.append('release_date', addSermonFormData.release_date)
   //TODO Handle scenario when topicList or categoryList contains only one value
-  for (const topic_id of topicList.value){
+  for (const topic_id of topicList.value) {
     formData.append('topic_ids', topic_id)
   }
-  for (const category_id of categoryList.value){
+  for (const category_id of categoryList.value) {
     formData.append('category_ids', category_id)
   }
 
   try {
-    const response = await SermonService.createSermon(formData);
-    resetFormData();
-    saveButtonLoading.value = false;
-    addSermonFormOpen.value = false;
+    // const response = await SermonService.createSermon(formData)
+    resetFormData()
+    saveButtonLoading.value = false
+    addSermonFormOpen.value = false
     notyf.success('Sermon created successfully')
-    await fetchSermons();
+    await fetchSermons()
   } catch (error) {
-    saveButtonLoading.value = false;
+    saveButtonLoading.value = false
     console.error(error)
   }
 }
@@ -193,140 +189,166 @@ const createSermon = async () => {
     <div class="page-content-inner">
       <div class="list-flex-toolbar flex-list-v1">
         <VButtons>
-          <VButton color="primary" icon="fas fa-plus" @click="addSermonFormOpen = true" elevated> Add Sermon </VButton>
+          <VButton
+            color="primary"
+            icon="fas fa-plus"
+            elevated
+            @click="addSermonFormOpen = true"
+          >
+            Add Sermon
+          </VButton>
         </VButtons>
       </div>
       <VLoader :active="tableLoading" size="large">
         <VSimpleDatatables>
           <thead>
-          <tr>
-            <th scope="col" data-sortable="false">
-              <VField>
-                <VControl>
-                  <!--                <VCheckbox color="primary" circle outlined />-->
-                </VControl>
-              </VField>
-            </th>
-            <th scope="col" >Title</th>
-            <th scope="col">Image</th>
-            <th scope="col">Audio</th>
-            <th scope="col" >Release Date</th>
-            <th scope="col" >Duration</th>
-            <th scope="col" >Preacher</th>
-            <th scope="col">Series</th>
-            <th scope="col">Last Updated</th>
-            <th scope="col">Date Created</th>
-            <th scope="col" data-sortable="false"></th>
-          </tr>
+            <tr>
+              <th scope="col" data-sortable="false">
+                <VField>
+                  <VControl>
+                    <!--                <VCheckbox color="primary" circle outlined />-->
+                  </VControl>
+                </VField>
+              </th>
+              <th scope="col">Title</th>
+              <th scope="col">Image</th>
+              <th scope="col">Audio</th>
+              <th scope="col">Release Date</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Preacher</th>
+              <th scope="col">Series</th>
+              <th scope="col">Last Updated</th>
+              <th scope="col">Date Created</th>
+              <th scope="col" data-sortable="false"></th>
+            </tr>
           </thead>
           <tbody v-if="!tableLoading">
-          <tr v-if="sermons.length === 0">
-            <td colspan="9">
-              <!--Empty Placeholder-->
-              <VPlaceholderSection
-                title="No sermon to show"
-                subtitle="There is currently no sermon to show in this list."
-              >
-                <template #image>
-                  <img
-                    class="light-image"
-                    src="/@src/assets/illustrations/placeholders/search-4.svg"
-                    alt=""
+            <tr v-if="sermons.length === 0">
+              <td colspan="9">
+                <!--Empty Placeholder-->
+                <VPlaceholderSection
+                  title="No sermon to show"
+                  subtitle="There is currently no sermon to show in this list."
+                >
+                  <template #image>
+                    <img
+                      class="light-image"
+                      src="/@src/assets/illustrations/placeholders/search-4.svg"
+                      alt=""
+                    />
+                    <img
+                      class="dark-image"
+                      src="/@src/assets/illustrations/placeholders/search-4-dark.svg"
+                      alt=""
+                    />
+                  </template>
+                </VPlaceholderSection>
+              </td>
+            </tr>
+            <tr v-for="sermon in sermons" :key="sermon.id">
+              <td>
+                <VField>
+                  <VControl>
+                    <VCheckbox color="primary" circle outlined />
+                  </VControl>
+                </VField>
+              </td>
+              <td>
+                <span
+                  class="has-dark-text dark-inverted is-font-alt is-weight-600 rem-90"
+                  >{{ sermon.title }}</span
+                >
+              </td>
+              <td>
+                <div class="flex-media">
+                  <VAvatar
+                    :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + sermon.image_url"
+                    size="medium"
                   />
-                  <img
-                    class="dark-image"
-                    src="/@src/assets/illustrations/placeholders/search-4-dark.svg"
-                    alt=""
-                  />
-                </template>
-              </VPlaceholderSection>
-            </td>
-          </tr>
-          <tr v-for="sermon in sermons">
-            <td>
-              <VField>
-                <VControl>
-                  <VCheckbox color="primary" circle outlined />
-                </VControl>
-              </VField>
-            </td>
-            <td >
-              <span class="has-dark-text dark-inverted is-font-alt is-weight-600 rem-90">{{sermon.title}}</span>
-            </td>
-            <td>
-              <div class="flex-media">
-                <VAvatar :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + sermon.image_url " size="medium" />
-              </div>
-            </td>
-            <td >
-              <a class="light-text" target="_blank" :href="'https://d2yydbsh2h36dh.cloudfront.net/' + sermon.audio_url.slice(0, -4) + '_playlist.m3u8'">{{ sermon.audio_url.slice(0, -4)}}</a>
-            </td>
-            <td>
-              <span class="light-text">{{ sermon.release_date}}</span>
-            </td>
-            <td>
-              <span class="light-text">{{ sermon.duration }}</span>
-            </td>
-            <td>
-              <span class="light-text">{{ sermon.preacher.name }}</span>
-            </td>
-            <td>
-              <span class="light-text">{{ sermon.series?.title }}</span>
-            </td>
-            <td>
-              <span class="light-text">{{ moment(sermon.updated_at).format("YYYY-MM-DD") }}</span>
-            </td>
-            <td>
-              <span class="light-text">{{ moment(sermon.created_at).format("YYYY-MM-DD") }}</span>
-            </td>
-            <td>
-              <VDropdown icon="feather:more-vertical" right spaced>
-                <template #content>
-                  <a href="#" role="menuitem" class="dropdown-item is-media">
-                    <div class="icon">
-                      <i aria-hidden="true" class="lnil lnil-reload"></i>
-                    </div>
-                    <div class="meta">
-                      <span>Reload</span>
-                      <span>Reload Widget</span>
-                    </div>
-                  </a>
+                </div>
+              </td>
+              <td>
+                <a
+                  class="light-text"
+                  target="_blank"
+                  :href="
+                    'https://d2yydbsh2h36dh.cloudfront.net/' +
+                    sermon.audio_url.slice(0, -4) +
+                    '_playlist.m3u8'
+                  "
+                  >{{ sermon.audio_url.slice(0, -4) }}</a
+                >
+              </td>
+              <td>
+                <span class="light-text">{{ sermon.release_date }}</span>
+              </td>
+              <td>
+                <span class="light-text">{{ sermon.duration }}</span>
+              </td>
+              <td>
+                <span class="light-text">{{ sermon.preacher.name }}</span>
+              </td>
+              <td>
+                <span class="light-text">{{ sermon.series?.title }}</span>
+              </td>
+              <td>
+                <span class="light-text">{{
+                  moment(sermon.updated_at).format('YYYY-MM-DD')
+                }}</span>
+              </td>
+              <td>
+                <span class="light-text">{{
+                  moment(sermon.created_at).format('YYYY-MM-DD')
+                }}</span>
+              </td>
+              <td>
+                <VDropdown icon="feather:more-vertical" right spaced>
+                  <template #content>
+                    <a href="#" role="menuitem" class="dropdown-item is-media">
+                      <div class="icon">
+                        <i aria-hidden="true" class="lnil lnil-reload"></i>
+                      </div>
+                      <div class="meta">
+                        <span>Reload</span>
+                        <span>Reload Widget</span>
+                      </div>
+                    </a>
 
-                  <a href="#" role="menuitem" class="dropdown-item is-media">
-                    <div class="icon">
-                      <i aria-hidden="true" class="lnil lnil-cogs"></i>
-                    </div>
-                    <div class="meta">
-                      <span>Configure</span>
-                      <span>Configure widget</span>
-                    </div>
-                  </a>
+                    <a href="#" role="menuitem" class="dropdown-item is-media">
+                      <div class="icon">
+                        <i aria-hidden="true" class="lnil lnil-cogs"></i>
+                      </div>
+                      <div class="meta">
+                        <span>Configure</span>
+                        <span>Configure widget</span>
+                      </div>
+                    </a>
 
-                  <a href="#" role="menuitem" class="dropdown-item is-media">
-                    <div class="icon">
-                      <i aria-hidden="true" class="lnil lnil-cog"></i>
-                    </div>
-                    <div class="meta">
-                      <span>Settings</span>
-                      <span>Widget Settings</span>
-                    </div>
-                  </a>
+                    <a href="#" role="menuitem" class="dropdown-item is-media">
+                      <div class="icon">
+                        <i aria-hidden="true" class="lnil lnil-cog"></i>
+                      </div>
+                      <div class="meta">
+                        <span>Settings</span>
+                        <span>Widget Settings</span>
+                      </div>
+                    </a>
 
-                  <hr class="dropdown-divider" />
+                    <hr class="dropdown-divider" />
 
-                  <a href="#" role="menuitem" class="dropdown-item is-media">
-                    <div class="icon">
-                      <i aria-hidden="true" class="lnil lnil-trash-can-alt"></i>
-                    </div>
-                    <div class="meta">
-                      <span>Remove</span>
-                      <span>Remove from view</span>
-                    </div>
-                  </a>
-                </template>
-              </VDropdown>
-            </td>
-          </tr>
+                    <a href="#" role="menuitem" class="dropdown-item is-media">
+                      <div class="icon">
+                        <i aria-hidden="true" class="lnil lnil-trash-can-alt"></i>
+                      </div>
+                      <div class="meta">
+                        <span>Remove</span>
+                        <span>Remove from view</span>
+                      </div>
+                    </a>
+                  </template>
+                </VDropdown>
+              </td>
+            </tr>
           </tbody>
         </VSimpleDatatables>
       </VLoader>
@@ -345,7 +367,11 @@ const createSermon = async () => {
             <div class="column is-12">
               <VField label="Sermon Title *">
                 <VControl>
-                  <VInput v-model="addSermonFormData.title" type="text"  placeholder="Ex: Redeeming the time" />
+                  <VInput
+                    v-model="addSermonFormData.title"
+                    type="text"
+                    placeholder="Ex: Redeeming the time"
+                  />
                 </VControl>
               </VField>
             </div>
@@ -362,7 +388,6 @@ const createSermon = async () => {
                     :options="preachers"
                     :max-height="145"
                     :searchable="true"
-
                   >
                     <template #singlelabel="{ value }">
                       <div class="multiselect-single-label">
@@ -377,7 +402,10 @@ const createSermon = async () => {
               </VField>
             </div>
             <div class="column is-12">
-              <VField class="is-image-select" label="Series (leave blank if sermon is not associated with any series)">
+              <VField
+                class="is-image-select"
+                label="Series (leave blank if sermon is not associated with any series)"
+              >
                 <VControl>
                   <Multiselect
                     v-model="addSermonFormData.series_id"
@@ -450,15 +478,20 @@ const createSermon = async () => {
               </VField>
             </div>
             <div class="column is-12">
-                <VDatePicker v-model="addSermonFormData.release_date" :model-config="{type: 'string',mask: 'iso' }" color="green" trim-weeks>
-                  <template #default="{ inputValue, inputEvents }">
-                    <VField label="Release Date *">
-                      <VControl icon="feather:calendar">
-                        <VInput :value="inputValue" v-on="inputEvents" />
-                      </VControl>
-                    </VField>
-                  </template>
-                </VDatePicker>
+              <VDatePicker
+                v-model="addSermonFormData.release_date"
+                :model-config="{ type: 'string', mask: 'iso' }"
+                color="green"
+                trim-weeks
+              >
+                <template #default="{ inputValue, inputEvents }">
+                  <VField label="Release Date *">
+                    <VControl icon="feather:calendar">
+                      <VInput :value="inputValue" v-on="inputEvents" />
+                    </VControl>
+                  </VField>
+                </template>
+              </VDatePicker>
             </div>
             <div class="column is-12">
               <VField class="is-image-select" label="Categories">
@@ -492,12 +525,17 @@ const createSermon = async () => {
                 </VControl>
               </VField>
             </div>
-
           </div>
         </div>
       </template>
-      <template #action="{ close }">
-        <VButton color="primary" :loading="saveButtonLoading" raised @click="createSermon()">Save</VButton>
+      <template>
+        <VButton
+          color="primary"
+          :loading="saveButtonLoading"
+          raised
+          @click="createSermon()"
+          >Save</VButton
+        >
       </template>
     </VModal>
   </SidebarLayout>

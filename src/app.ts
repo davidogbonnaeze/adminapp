@@ -4,6 +4,7 @@ import { createHead } from '@vueuse/head'
 import { createPinia } from 'pinia'
 import { createRouter } from './router'
 import VueroApp from './VueroApp.vue'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import './styles'
 
 import { createApi } from '/@src/composable/useApi'
@@ -29,6 +30,7 @@ export async function createApp() {
   app.use(head)
 
   const pinia = createPinia()
+  pinia.use(piniaPluginPersistedstate)
   app.use(pinia)
 
   const vuero = {

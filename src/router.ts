@@ -42,15 +42,16 @@ export function createRouter() {
     /**
      * You can extend existing routes:
      */
-    // extendRoutes: (routes) => {
-    //   const adminRoute = routes.find((r) => r.name === '/admin')
-    //   if (!adminRoute) {
-    //     adminRoute.meta ??= {}
-    //     adminRoute.meta.requiresAuth = true
-    //   }
-    //   // completely optional since we are modifying the routes in place
-    //   return routes
-    // },
+    extendRoutes: (routes) => {
+      routes.map((r) => {
+        if (r.name !== '/') {
+          r.meta ??= {}
+          r.meta.requiresAuth = true
+        }
+      })
+      // completely optional since we are modifying the routes in place
+      return routes
+    },
 
     // handle scroll behavior between routes
     scrollBehavior: (to, from, savedPosition) => {

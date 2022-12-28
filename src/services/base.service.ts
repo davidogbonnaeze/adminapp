@@ -1,22 +1,32 @@
-import { useApi } from '/@src/composable/useApi'
-
-const api = useApi();
+import Axios from 'axios'
 
 class BaseService {
-  static post(url: string, data: any) {
-    return api.post(`/${url}`, data)
+  static post(uri: string, data: any) {
+    return this.http().post(this.setUri(uri), data)
   }
 
-  static get(url: string) {
-    return api.get(`/${url}`)
+  static put(uri: string, data: any) {
+    return this.http().put(this.setUri(uri), data)
   }
 
-  static patch(url: string, data: unknown) {
-    return api.patch(`/${url}`, data)
+  static get(uri: string) {
+    return this.http().get(this.setUri(uri))
   }
 
-  static delete(url: string) {
-    return api.delete(`/${url}`)
+  static patch(uri: string, data: any) {
+    return this.http().patch(this.setUri(uri), data)
+  }
+
+  static delete(uri: string) {
+    return this.http().delete(this.setUri(uri))
+  }
+
+  static http() {
+    return Axios.create()
+  }
+
+  static setUri(uri: string) {
+    return import.meta.env.VITE_API_BASE_URL + uri
   }
 }
 
