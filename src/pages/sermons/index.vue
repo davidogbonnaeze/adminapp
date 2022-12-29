@@ -281,7 +281,9 @@ const createSermon = async () => {
                           >
                         </td>
                         <td>
-                          <span class="light-text">{{ sermon.release_date }}</span>
+                          <span class="light-text">{{
+                            moment(sermon.release_date).format('YYYY-MM-DD')
+                          }}</span>
                         </td>
                         <td>
                           <span class="light-text">{{ sermon.duration }}</span>
