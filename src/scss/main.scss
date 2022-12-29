@@ -76,3 +76,26 @@ SCSS Imports
 .ais-SearchBox-reset {
   display: none;
 }
+
+.ais-Pagination-list {
+  display: flex;
+  gap: 10px;
+}
+
+.ais-Pagination-item {
+  height: 40px;
+  width: 40px;
+  background: white;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ais-Pagination-item--selected {
+  background: var(--primary-light-3);
+
+  .ais-Pagination-link {
+    color: var(--white);
+  }
+}

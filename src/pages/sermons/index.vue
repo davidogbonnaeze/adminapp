@@ -360,8 +360,8 @@ const createSermon = async () => {
                 </template>
               </ais-hits>
 
-              <div class="pagination">
-                <ais-pagination />
+              <div class="pagination is-flex is-justify-content-center">
+                <ais-pagination style="display: flex" />
               </div>
             </div>
           </div>
