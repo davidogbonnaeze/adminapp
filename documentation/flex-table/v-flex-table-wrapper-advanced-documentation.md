@@ -23,7 +23,7 @@ const columns = {
     label: 'Username',
     media: true,
     grow: true,
-    sortable: true,
+    sortable: false,
   },
   location: {
     label: 'Location',

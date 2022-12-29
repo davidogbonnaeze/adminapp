@@ -280,7 +280,7 @@ export default defineComponent({
         const sortingColumn = columns.value
           ? (Object.values(columns.value).find((column) => {
               if (!column || typeof column === 'string') return false
-              return column.sortable === true && column.key === sortField
+              return column.sortable === false && column.key === sortField
             }) as Partial<VFlexTableWrapperColumn>)
           : null
 

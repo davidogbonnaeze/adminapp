@@ -264,7 +264,9 @@ if (isReactive(props.options)) {
 }
 
 .dataTable-wrapper {
+  margin-top: 1.5rem;
   .dataTable-top {
+    display: none;
     margin-bottom: 1.5rem;
     padding-left: 0;
     padding-right: 0;
@@ -358,6 +360,8 @@ if (isReactive(props.options)) {
     background: var(--white);
     border: none !important;
     overflow-x: auto;
+    height: 100%;
+    max-height: calc(79vh - 5rem);
 
     &::-webkit-scrollbar {
       height: 8px !important;
