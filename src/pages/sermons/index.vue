@@ -217,16 +217,16 @@ const createSermon = async () => {
                   <VSimpleDatatables class="text-nowrap">
                     <thead>
                       <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Audio</th>
-                        <th scope="col">Release Date</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Preacher</th>
-                        <th scope="col">Series</th>
-                        <th scope="col">Last Updated</th>
-                        <th scope="col">Date Created</th>
-                        <th scope="col" data-sortable="false"></th>
+                        <th data-sortable="false">Title</th>
+                        <th data-sortable="false">Image</th>
+                        <th data-sortable="false">Audio</th>
+                        <th data-sortable="false">Release Date</th>
+                        <th data-sortable="false">Duration</th>
+                        <th data-sortable="false">Preacher</th>
+                        <th data-sortable="false">Series</th>
+                        <th data-sortable="false">Last Updated</th>
+                        <th data-sortable="false">Date Created</th>
+                        <th data-sortable="false"></th>
                       </tr>
                     </thead>
                     <tbody v-if="!tableLoading">
