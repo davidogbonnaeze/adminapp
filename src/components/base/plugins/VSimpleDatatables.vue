@@ -360,6 +360,8 @@ if (isReactive(props.options)) {
     background: var(--white);
     border: none !important;
     overflow-x: auto;
+    height: 100%;
+    max-height: calc(79vh - 5rem);
 
     &::-webkit-scrollbar {
       height: 8px !important;

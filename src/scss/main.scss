@@ -99,3 +99,8 @@ SCSS Imports
     color: var(--white);
   }
 }
+
+.pagination {
+  overflow-x: scroll;
+  margin: 0 10px;
+}
