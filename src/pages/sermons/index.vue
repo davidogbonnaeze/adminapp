@@ -14,7 +14,9 @@ import type { Category } from '/@src/interfaces/category'
 import type { Topic } from '/@src/interfaces/topic'
 import { CategoryService } from '/@src/services/category.service'
 import { TopicService } from '/@src/services/topic.service'
+import algoliasearch from 'algoliasearch/lite'
 
+const searchClient = ref(algoliasearch('I12U2XGLQV', 'b271ed9dd42677204f390a183509e054'))
 const notyf = new Notyf()
 const sermons = ref<Sermon[]>([])
 const preachers = ref<Preacher[]>([])
@@ -200,157 +202,169 @@ const createSermon = async () => {
         </VButtons>
       </div>
       <VLoader :active="tableLoading" size="large">
-        <VSimpleDatatables>
-          <thead>
-            <tr>
-              <th scope="col" data-sortable="false">
-                <VField>
-                  <VControl>
-                    <!--                <VCheckbox color="primary" circle outlined />-->
-                  </VControl>
-                </VField>
-              </th>
-              <th scope="col">Title</th>
-              <th scope="col">Image</th>
-              <th scope="col">Audio</th>
-              <th scope="col">Release Date</th>
-              <th scope="col">Duration</th>
-              <th scope="col">Preacher</th>
-              <th scope="col">Series</th>
-              <th scope="col">Last Updated</th>
-              <th scope="col">Date Created</th>
-              <th scope="col" data-sortable="false"></th>
-            </tr>
-          </thead>
-          <tbody v-if="!tableLoading">
-            <tr v-if="sermons.length === 0">
-              <td colspan="9">
-                <!--Empty Placeholder-->
-                <VPlaceholderSection
-                  title="No sermon to show"
-                  subtitle="There is currently no sermon to show in this list."
-                >
-                  <template #image>
-                    <img
-                      class="light-image"
-                      src="/@src/assets/illustrations/placeholders/search-4.svg"
-                      alt=""
-                    />
-                    <img
-                      class="dark-image"
-                      src="/@src/assets/illustrations/placeholders/search-4-dark.svg"
-                      alt=""
-                    />
-                  </template>
-                </VPlaceholderSection>
-              </td>
-            </tr>
-            <tr v-for="sermon in sermons" :key="sermon.id">
-              <td>
-                <VField>
-                  <VControl>
-                    <VCheckbox color="primary" circle outlined />
-                  </VControl>
-                </VField>
-              </td>
-              <td>
-                <span
-                  class="has-dark-text dark-inverted is-font-alt is-weight-600 rem-90"
-                  >{{ sermon.title }}</span
-                >
-              </td>
-              <td>
-                <div class="flex-media">
-                  <VAvatar
-                    :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + sermon.image_url"
-                    size="medium"
-                  />
-                </div>
-              </td>
-              <td>
-                <a
-                  class="light-text"
-                  target="_blank"
-                  :href="
-                    'https://d2yydbsh2h36dh.cloudfront.net/' +
-                    sermon.audio_url.slice(0, -4) +
-                    '_playlist.m3u8'
-                  "
-                  >{{ sermon.audio_url.slice(0, -4) }}</a
-                >
-              </td>
-              <td>
-                <span class="light-text">{{ sermon.release_date }}</span>
-              </td>
-              <td>
-                <span class="light-text">{{ sermon.duration }}</span>
-              </td>
-              <td>
-                <span class="light-text">{{ sermon.preacher.name }}</span>
-              </td>
-              <td>
-                <span class="light-text">{{ sermon.series?.title }}</span>
-              </td>
-              <td>
-                <span class="light-text">{{
-                  moment(sermon.updated_at).format('YYYY-MM-DD')
-                }}</span>
-              </td>
-              <td>
-                <span class="light-text">{{
-                  moment(sermon.created_at).format('YYYY-MM-DD')
-                }}</span>
-              </td>
-              <td>
-                <VDropdown icon="feather:more-vertical" right spaced>
-                  <template #content>
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-reload"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Reload</span>
-                        <span>Reload Widget</span>
-                      </div>
-                    </a>
+        <ais-instant-search :search-client="searchClient" index-name="edify_sermons">
+          <div class="search-panel">
+            <div class="search-panel__filters">
+              <ais-refinement-list attribute="brand" />
+            </div>
 
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-cogs"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Configure</span>
-                        <span>Configure widget</span>
-                      </div>
-                    </a>
+            <div class="search-panel__results">
+              <div class="searchbox">
+                <ais-search-box placeholder="Search" />
+              </div>
+              <ais-hits>
+                <template #default="{ items }">
+                  <VSimpleDatatables class="text-nowrap">
+                    <thead>
+                      <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Audio</th>
+                        <th scope="col">Release Date</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Preacher</th>
+                        <th scope="col">Series</th>
+                        <th scope="col">Last Updated</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col" data-sortable="false"></th>
+                      </tr>
+                    </thead>
+                    <tbody v-if="!tableLoading">
+                      <tr v-if="items.length === 0">
+                        <td colspan="9">
+                          <!--Empty Placeholder-->
+                          <VPlaceholderSection
+                            title="No sermon to show"
+                            subtitle="There is currently no sermon to show in this list."
+                          >
+                            <template #image>
+                              <img
+                                class="light-image"
+                                src="/@src/assets/illustrations/placeholders/search-4.svg"
+                                alt=""
+                              />
+                              <img
+                                class="dark-image"
+                                src="/@src/assets/illustrations/placeholders/search-4-dark.svg"
+                                alt=""
+                              />
+                            </template>
+                          </VPlaceholderSection>
+                        </td>
+                      </tr>
+                      <tr v-for="sermon in items" :key="sermon.id">
+                        <td>
+                          <span
+                            class="has-dark-text dark-inverted is-font-alt is-weight-600 rem-90"
+                            >{{ sermon.title }}</span
+                          >
+                        </td>
+                        <td>
+                          <div class="flex-media">
+                            <VAvatar
+                              :picture="
+                                'https://d1zuqyxxudi0k.cloudfront.net/' + sermon.image_url
+                              "
+                              size="medium"
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <a
+                            class="light-text"
+                            target="_blank"
+                            :href="
+                              'https://d2yydbsh2h36dh.cloudfront.net/' +
+                              sermon.audio_url.slice(0, -4) +
+                              '_playlist.m3u8'
+                            "
+                            >{{ sermon.audio_url.slice(0, -4) }}</a
+                          >
+                        </td>
+                        <td>
+                          <span class="light-text">{{ sermon.release_date }}</span>
+                        </td>
+                        <td>
+                          <span class="light-text">{{ sermon.duration }}</span>
+                        </td>
+                        <td>
+                          <span class="light-text">{{ sermon.preacher.name }}</span>
+                        </td>
+                        <td>
+                          <span class="light-text">{{ sermon.series?.title }}</span>
+                        </td>
+                        <td>
+                          <span class="light-text">{{
+                            moment(sermon.updated_at).format('YYYY-MM-DD')
+                          }}</span>
+                        </td>
+                        <td>
+                          <span class="light-text">{{
+                            moment(sermon.created_at).format('YYYY-MM-DD')
+                          }}</span>
+                        </td>
+                        <td>
+                          <VDropdown icon="feather:more-vertical" right spaced>
+                            <template #content>
+                              <a href="#" role="menuitem" class="dropdown-item is-media">
+                                <div class="icon">
+                                  <i aria-hidden="true" class="lnil lnil-reload"></i>
+                                </div>
+                                <div class="meta">
+                                  <span>Reload</span>
+                                  <span>Reload Widget</span>
+                                </div>
+                              </a>
 
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-cog"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Settings</span>
-                        <span>Widget Settings</span>
-                      </div>
-                    </a>
+                              <a href="#" role="menuitem" class="dropdown-item is-media">
+                                <div class="icon">
+                                  <i aria-hidden="true" class="lnil lnil-cogs"></i>
+                                </div>
+                                <div class="meta">
+                                  <span>Configure</span>
+                                  <span>Configure widget</span>
+                                </div>
+                              </a>
 
-                    <hr class="dropdown-divider" />
+                              <a href="#" role="menuitem" class="dropdown-item is-media">
+                                <div class="icon">
+                                  <i aria-hidden="true" class="lnil lnil-cog"></i>
+                                </div>
+                                <div class="meta">
+                                  <span>Settings</span>
+                                  <span>Widget Settings</span>
+                                </div>
+                              </a>
 
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-trash-can-alt"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Remove</span>
-                        <span>Remove from view</span>
-                      </div>
-                    </a>
-                  </template>
-                </VDropdown>
-              </td>
-            </tr>
-          </tbody>
-        </VSimpleDatatables>
+                              <hr class="dropdown-divider" />
+
+                              <a href="#" role="menuitem" class="dropdown-item is-media">
+                                <div class="icon">
+                                  <i
+                                    aria-hidden="true"
+                                    class="lnil lnil-trash-can-alt"
+                                  ></i>
+                                </div>
+                                <div class="meta">
+                                  <span>Remove</span>
+                                  <span>Remove from view</span>
+                                </div>
+                              </a>
+                            </template>
+                          </VDropdown>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </VSimpleDatatables>
+                </template>
+              </ais-hits>
+
+              <div class="pagination">
+                <ais-pagination />
+              </div>
+            </div>
+          </div>
+        </ais-instant-search>
       </VLoader>
     </div>
     <VModal

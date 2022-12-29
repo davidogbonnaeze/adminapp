@@ -8,6 +8,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import './styles'
 
 import { createApi } from '/@src/composable/useApi'
+import InstantSearch from 'vue-instantsearch/vue3/es'
 
 export type VueroAppContext = Awaited<ReturnType<typeof createApp>>
 export type VueroPlugin = (vuero: VueroAppContext) => void | Promise<void>
@@ -32,6 +33,8 @@ export async function createApp() {
   const pinia = createPinia()
   pinia.use(piniaPluginPersistedstate)
   app.use(pinia)
+
+  app.use(InstantSearch)
 
   const vuero = {
     app,
