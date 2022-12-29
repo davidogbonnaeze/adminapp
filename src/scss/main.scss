@@ -45,3 +45,62 @@ SCSS Imports
 @import './components/credit-card';
 @import './components/widgets';
 @import './components/layout-selector';
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+.ais-SearchBox-input {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--dark-text);
+  border-radius: 0.5rem;
+  height: 38px;
+  transition: box-shadow 0.3s;
+  padding: 6px 12px;
+
+  &::placeholder {
+    color: var(--placeholder);
+  }
+
+  &:focus {
+    box-shadow: var(--light-box-shadow);
+  }
+}
+
+.ais-SearchBox-submit {
+  display: none;
+}
+
+.ais-SearchBox-reset {
+  display: none;
+}
+
+.ais-Pagination-list {
+  display: flex;
+  gap: 10px;
+}
+
+.ais-Pagination-item {
+  height: 40px;
+  width: 40px;
+  background: white;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ais-Pagination-item--selected {
+  background: var(--primary-light-3);
+
+  .ais-Pagination-link {
+    color: var(--white);
+  }
+}
+
+.pagination {
+  overflow-x: scroll;
+  margin: 0 10px;
+}
