@@ -232,7 +232,6 @@ const createSermon = async () => {
                     <tbody v-if="!tableLoading">
                       <tr v-if="items.length === 0">
                         <td colspan="9">
-                          <!--Empty Placeholder-->
                           <VPlaceholderSection
                             title="No sermon to show"
                             subtitle="There is currently no sermon to show in this list."

@@ -264,7 +264,9 @@ if (isReactive(props.options)) {
 }
 
 .dataTable-wrapper {
+  margin-top: 1.5rem;
   .dataTable-top {
+    display: none;
     margin-bottom: 1.5rem;
     padding-left: 0;
     padding-right: 0;
