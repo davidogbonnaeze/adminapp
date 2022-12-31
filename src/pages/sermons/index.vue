@@ -262,7 +262,7 @@ const createSermon = async () => {
                           <div class="flex-media">
                             <VAvatar
                               :picture="
-                                'https://d1zuqyxxudi0k.cloudfront.net/' + sermon.image_url
+                                sermon.image_url
                               "
                               size="medium"
                             />
@@ -272,12 +272,10 @@ const createSermon = async () => {
                           <a
                             class="light-text"
                             target="_blank"
-                            :href="
-                              'https://d2yydbsh2h36dh.cloudfront.net/' +
-                              sermon.audio_url.slice(0, -4) +
+                            :href="sermon.audio_url.slice(0, -4) +
                               '_playlist.m3u8'
                             "
-                            >{{ sermon.audio_url.slice(0, -4) }}</a
+                            >Insert Play Audio Button</a
                           >
                         </td>
                         <td>

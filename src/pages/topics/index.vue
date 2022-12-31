@@ -154,7 +154,7 @@ const createTopic = async () => {
             </td>
             <td>
               <div class="flex-media">
-                <VAvatar :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + topic.image_url " size="medium" />
+                <VAvatar :picture="topic.image_url " size="medium" />
               </div>
             </td>
             <td>

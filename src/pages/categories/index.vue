@@ -155,7 +155,7 @@ const createCategory = async () => {
               <span class="light-text">{{ category.color}}</span>
             </td>
             <td>
-              <VAvatar :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + category.image_url " size="medium" />
+              <VAvatar :picture="category.image_url " size="medium" />
             </td>
             <td>
               <span class="light-text">{{ category.sermons.length}}</span>

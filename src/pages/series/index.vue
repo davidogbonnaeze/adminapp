@@ -212,7 +212,7 @@ const createSeries = async () => {
             </td>
             <td>
               <div class="flex-media">
-                <VAvatar :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + series.image_url " size="medium" />
+                <VAvatar :picture="series.image_url " size="medium" />
               </div>
             </td>
             <td>

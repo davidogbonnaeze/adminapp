@@ -159,7 +159,7 @@ const onRemoveFile = (error: any, fileInfo: any) => {
             </td>
             <td>
               <div class="flex-media">
-                <VAvatar :picture="'https://d1zuqyxxudi0k.cloudfront.net/' + preacher.image_url " size="medium" />
+                <VAvatar :picture="preacher.image_url " size="medium" />
               </div>
             </td>
             <td>
