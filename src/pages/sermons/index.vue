@@ -541,7 +541,7 @@ const createSermon = async () => {
           </div>
         </div>
       </template>
-      <template>
+      <template #action="{ close }">
         <VButton
           color="primary"
           :loading="saveButtonLoading"
