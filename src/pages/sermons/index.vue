@@ -171,7 +171,8 @@ const createSermon = async () => {
   }
 
   try {
-    // const response = await SermonService.createSermon(formData)
+    const response = await SermonService.createSermon(formData)
+    console.log(response)
     resetFormData()
     saveButtonLoading.value = false
     addSermonFormOpen.value = false
@@ -260,21 +261,14 @@ const createSermon = async () => {
                         </td>
                         <td>
                           <div class="flex-media">
-                            <VAvatar
-                              :picture="
-                                sermon.image_url
-                              "
-                              size="medium"
-                            />
+                            <VAvatar :picture="sermon.image_url" size="medium" />
                           </div>
                         </td>
                         <td>
                           <a
                             class="light-text"
                             target="_blank"
-                            :href="sermon.audio_url.slice(0, -4) +
-                              '_playlist.m3u8'
-                            "
+                            :href="sermon.audio_url.slice(0, -4) + '_playlist.m3u8'"
                             >Insert Play Audio Button</a
                           >
                         </td>
@@ -541,7 +535,7 @@ const createSermon = async () => {
           </div>
         </div>
       </template>
-      <template #action="{ close }">
+      <template #action>
         <VButton
           color="primary"
           :loading="saveButtonLoading"
