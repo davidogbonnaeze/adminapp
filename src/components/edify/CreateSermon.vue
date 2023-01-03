@@ -55,8 +55,8 @@
                   </Multiselect>
                 </VControl>
               </VField>
+              <CreatePreacher :is-text="true" @fetch-preachers="fetchPreachers" />
             </div>
-            <CreateSeries :is-text="true" />
             <div class="column is-12">
               <VField
                 class="is-image-select"
@@ -85,6 +85,7 @@
                   </Multiselect>
                 </VControl>
               </VField>
+              <CreateSeries :is-text="true" />
             </div>
             <div class="column is-6">
               <VField label="Sermon Image *">
@@ -164,6 +165,7 @@
                   />
                 </VControl>
               </VField>
+              <CreateCategory :is-text="true" />
             </div>
             <div class="column is-12">
               <VField class="is-image-select" label="Topics">
@@ -180,6 +182,7 @@
                   />
                 </VControl>
               </VField>
+              <CreateTopic :is-text="true" />
             </div>
           </div>
         </div>

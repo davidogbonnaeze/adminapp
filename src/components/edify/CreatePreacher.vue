@@ -155,6 +155,7 @@ defineProps<{
   isText?: boolean
 }>()
 
+const emit = defineEmits(['fetchPreachers'])
 const notyf = new Notyf()
 const addPreacherFormOpen = ref(false)
 const addPreacherFormData = reactive({
@@ -166,6 +167,7 @@ const addPreacherFormData = reactive({
 const saveButtonLoading = ref(false)
 
 const createPreacher = async () => {
+  emit('fetchPreachers')
   saveButtonLoading.value = true
   const formData = new FormData()
   formData.append('preacher_image', addPreacherFormData.preacher_image)
