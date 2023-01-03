@@ -56,6 +56,7 @@
                 </VControl>
               </VField>
             </div>
+            <CreateSeries :is-text="true" />
             <div class="column is-12">
               <VField
                 class="is-image-select"

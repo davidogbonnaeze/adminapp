@@ -3,7 +3,6 @@ import { useHead } from '@vueuse/head'
 import { useViewWrapper } from '/@src/stores/viewWrapper'
 import moment from 'moment'
 import algoliasearch from 'algoliasearch/lite'
-import CreateSermon from '/@src/components/edify/CreateSermon.vue'
 
 const searchClient = ref(algoliasearch('I12U2XGLQV', 'b271ed9dd42677204f390a183509e054'))
 const tableLoading = ref<boolean>(false)

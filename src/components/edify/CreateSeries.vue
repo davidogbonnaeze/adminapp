@@ -1,7 +1,20 @@
 <template>
-  <VButton color="primary" icon="fas fa-plus" elevated @click="addSeriesFormOpen = true">
+  <VButton
+    v-if="!isText"
+    color="primary"
+    icon="fas fa-plus"
+    elevated
+    @click="addSeriesFormOpen = true"
+  >
     Add Series
   </VButton>
+  <button
+    v-if="isText"
+    class="text-is-primary comp-inline"
+    @click="addSeriesFormOpen = true"
+  >
+    + Add Series
+  </button>
   <VModal
     :open="addSeriesFormOpen"
     size="large"
@@ -165,6 +178,10 @@ import { Series } from '/@src/interfaces/series'
 import { Preacher } from '/@src/interfaces/preacher'
 import { Category } from '/@src/interfaces/category'
 import { Topic } from '/@src/interfaces/topic'
+
+defineProps<{
+  isText?: boolean
+}>()
 
 onMounted(() => {
   fetchPreachers()

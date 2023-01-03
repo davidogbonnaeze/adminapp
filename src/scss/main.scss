@@ -424,3 +424,15 @@ SCSS Imports
     }
   }
 }
+
+.text-is-primary {
+  color: var(--primary);
+}
+
+.comp-inline {
+  margin-left: 10px;
+  margin-top: -10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
