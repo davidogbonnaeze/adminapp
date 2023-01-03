@@ -126,7 +126,7 @@ const columns = computed(() => {
                 column.align === 'end' && 'cell-end',
                 column.align === 'center' && 'cell-center',
               ]"
-              >{{ column.label }}</span
+              >{{ column.label }} ghghg</span
             >
           </slot>
         </template>

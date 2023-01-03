@@ -11,7 +11,12 @@ export interface VSimpleDatatablesProps {
 }
 
 const props = withDefaults(defineProps<VSimpleDatatablesProps>(), {
-  options: () => ({}),
+  options: () => ({
+    searchable: false,
+    sortable: false,
+    perPageSelect: false,
+    paging: false,
+  }),
 })
 
 const tableElement = ref<HTMLElement>()
@@ -90,20 +95,20 @@ const registerEvents = () => {
     datatable.value.on(`datatable.update`, () => {
       emit('update')
     })
-    datatable.value.on(`datatable.page`, (page: number) => {
-      emit('page', page)
-    })
-    datatable.value.on(`datatable.sort`, (column: number, direction?: string) => {
-      lastSort.column = column
-      lastSort.direction = direction || ''
-      emit('sort', column, direction)
-    })
-    datatable.value.on(`datatable.perpage`, (perpage: number) => {
-      emit('perpage', perpage)
-    })
-    datatable.value.on(`datatable.search`, (query: string, matched: any[]) => {
-      emit('search', query, matched)
-    })
+    // datatable.value.on(`datatable.page`, (page: number) => {
+    //   emit('page', page)
+    // })
+    // datatable.value.on(`datatable.sort`, (column: number, direction?: string) => {
+    //   lastSort.column = column
+    //   lastSort.direction = direction || ''
+    //   emit('sort', column, direction)
+    // })
+    // datatable.value.on(`datatable.perpage`, (perpage: number) => {
+    //   emit('perpage', perpage)
+    // })
+    // datatable.value.on(`datatable.search`, (query: string, matched: any[]) => {
+    //   emit('search', query, matched)
+    // })
   }
 }
 
@@ -167,9 +172,9 @@ if (isReactive(props.options)) {
       let search = ''
 
       if (datatable.value) {
-        currentPage = datatable.value.currentPage
-        search = datatable.value.input?.value
-        perPage = datatable.value.options?.perPage
+        // currentPage = datatable.value.currentPage
+        // search = datatable.value.input?.value
+        // perPage = datatable.value.options?.perPage
         unregisterEvents()
       }
 
@@ -266,7 +271,6 @@ if (isReactive(props.options)) {
 .dataTable-wrapper {
   margin-top: 1.5rem;
   .dataTable-top {
-    display: none;
     margin-bottom: 1.5rem;
     padding-left: 0;
     padding-right: 0;
@@ -362,6 +366,7 @@ if (isReactive(props.options)) {
     overflow-x: auto;
     height: 100%;
     max-height: calc(79vh - 5rem);
+    margin-bottom: 1.5rem;
 
     &::-webkit-scrollbar {
       height: 8px !important;
