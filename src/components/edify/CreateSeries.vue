@@ -150,8 +150,9 @@
 
 <script setup lang="ts">
 import { Notyf } from 'notyf'
+
+const emit = defineEmits(['fetchSeries'])
 const notyf = new Notyf()
-const seriesList = ref<Series[]>([])
 const preachers = ref<Preacher[]>([])
 const categories = ref<Category[]>([])
 const topics = ref<Topic[]>([])
@@ -166,7 +167,6 @@ const addSeriesFormData = reactive({
   category_ids: null as any,
   topic_ids: null as any,
 })
-const tableLoading = ref(true)
 const saveButtonLoading = ref(false)
 
 import { PreacherService } from '/@src/services/preacher.service'
@@ -174,7 +174,6 @@ import { CategoryService } from '/@src/services/category.service'
 import { TopicService } from '/@src/services/topic.service'
 import { SeriesService } from '/@src/services/series.service'
 import { onMounted, reactive, ref } from 'vue'
-import { Series } from '/@src/interfaces/series'
 import { Preacher } from '/@src/interfaces/preacher'
 import { Category } from '/@src/interfaces/category'
 import { Topic } from '/@src/interfaces/topic'
@@ -187,7 +186,6 @@ onMounted(() => {
   fetchPreachers()
   fetchCategories()
   fetchTopics()
-  fetchSeries()
 })
 
 const fetchPreachers = async () => {
@@ -212,16 +210,6 @@ const fetchTopics = async () => {
   try {
     const response = await TopicService.getTopics()
     topics.value = response.data.data
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-const fetchSeries = async () => {
-  try {
-    const response = await SeriesService.getSeries()
-    seriesList.value = response.data.data
-    tableLoading.value = false
   } catch (error) {
     console.error(error)
   }
@@ -279,7 +267,7 @@ const createSeries = async () => {
     saveButtonLoading.value = false
     addSeriesFormOpen.value = false
     notyf.success('Series created successfully')
-    await fetchSeries()
+    emit('fetchSeries')
   } catch (error) {
     saveButtonLoading.value = false
     console.error(error)

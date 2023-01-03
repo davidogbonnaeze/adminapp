@@ -85,7 +85,7 @@
                   </Multiselect>
                 </VControl>
               </VField>
-              <CreateSeries :is-text="true" />
+              <CreateSeries :is-text="true" @fetch-series="fetchSeries" />
             </div>
             <div class="column is-6">
               <VField label="Sermon Image *">
