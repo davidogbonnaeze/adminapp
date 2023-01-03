@@ -91,6 +91,7 @@ declare module '@vue/runtime-core' {
     ContentTablesDocumentation: typeof import('./documentation/elements/content/content-tables-documentation.md')['default']
     ContentTitlesDocumentation: typeof import('./documentation/elements/content/content-titles-documentation.md')['default']
     ContentUnorderedListsDocumentation: typeof import('./documentation/elements/content/content-unordered-lists-documentation.md')['default']
+    CreateCategory: typeof import('./src/components/edify/CreateCategory.vue')['default']
     CreatePreacher: typeof import('./src/components/edify/CreatePreacher.vue')['default']
     CreateSeries: typeof import('./src/components/edify/CreateSeries.vue')['default']
     CreateSermon: typeof import('./src/components/edify/CreateSermon.vue')['default']
