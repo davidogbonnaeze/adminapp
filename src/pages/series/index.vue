@@ -6,9 +6,14 @@ import { SeriesService } from '/@src/services/series.service'
 import moment from 'moment'
 import CreateSeries from '/@src/components/edify/CreateSeries.vue'
 import { Series } from '/@src/interfaces/series'
+import { Notyf } from 'notyf'
 
+const notyf = new Notyf()
 const seriesList = ref<Series[]>([])
 const tableLoading = ref(true)
+const isDeletingSeries = ref<boolean>(false)
+const deleteSeriesModal = ref<boolean>(false)
+const selectedSeries = ref<Series>()
 const viewWrapper = useViewWrapper()
 viewWrapper.setPageTitle('Series')
 
@@ -26,6 +31,25 @@ const fetchSeries = async () => {
     seriesList.value = response.data.data
     tableLoading.value = false
   } catch (error) {
+    console.error(error)
+  }
+}
+
+const openDeleteSeriesModal = (series: Series) => {
+  deleteSeriesModal.value = true
+  selectedSeries.value = series
+}
+
+const deleteSeries = async () => {
+  isDeletingSeries.value = true
+  try {
+    const seriesId = selectedSeries.value?.id as string
+    await SeriesService.deleteSeries(seriesId)
+    isDeletingSeries.value = false
+    await fetchSeries()
+    notyf.success('Series deleted successfully')
+  } catch (error) {
+    isDeletingSeries.value = false
     console.error(error)
   }
 }
@@ -139,45 +163,17 @@ const fetchSeries = async () => {
               <td>
                 <VDropdown icon="feather:more-vertical" right spaced>
                   <template #content>
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-reload"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Reload</span>
-                        <span>Reload Widget</span>
-                      </div>
-                    </a>
-
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-cogs"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Configure</span>
-                        <span>Configure widget</span>
-                      </div>
-                    </a>
-
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-cog"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Settings</span>
-                        <span>Widget Settings</span>
-                      </div>
-                    </a>
-
-                    <hr class="dropdown-divider" />
-
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
+                    <a
+                      href="#"
+                      role="menuitem"
+                      class="dropdown-item is-media"
+                      @click="openDeleteSeriesModal(series)"
+                    >
                       <div class="icon">
                         <i aria-hidden="true" class="lnil lnil-trash-can-alt"></i>
                       </div>
                       <div class="meta">
-                        <span>Remove</span>
-                        <span>Remove from view</span>
+                        <span>Delete</span>
                       </div>
                     </a>
                   </template>
@@ -188,5 +184,26 @@ const fetchSeries = async () => {
         </VSimpleDatatables>
       </VLoader>
     </div>
+
+    <VModal
+      :open="deleteSeriesModal"
+      size="large"
+      title="Delete Series"
+      actions="right"
+      noclose
+      @close="deleteSeriesModal = false"
+    >
+      <template #content>
+        <h5 v-if="selectedSeries" class="has-text-centered">
+          Delete
+          <span class="is-medium-bold">{{ selectedSeries.title }}</span>
+        </h5>
+      </template>
+      <template #action>
+        <VButton color="primary" :loading="isDeletingSeries" raised @click="deleteSeries"
+          >Delete</VButton
+        >
+      </template>
+    </VModal>
   </SidebarLayout>
 </template>

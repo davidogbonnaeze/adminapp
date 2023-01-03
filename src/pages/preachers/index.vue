@@ -5,9 +5,14 @@ import { onMounted, ref } from 'vue'
 import { PreacherService } from '/@src/services/preacher.service'
 import type { Preacher } from '/@src/interfaces/preacher'
 import moment from 'moment'
+import { Notyf } from 'notyf'
 
+const notyf = new Notyf()
 const preachers = ref<Preacher[]>([])
 const tableLoading = ref(true)
+const isDeletingPreacher = ref<boolean>(false)
+const deletePreacherModal = ref<boolean>(false)
+const selectedPreacher = ref<Preacher>()
 const viewWrapper = useViewWrapper()
 viewWrapper.setPageTitle('Preacher')
 
@@ -26,6 +31,25 @@ const getPreachers = async () => {
     preachers.value = response.data.data
     tableLoading.value = false
   } catch (error) {
+    console.error(error)
+  }
+}
+
+const openDeletePreacherModal = (preacher: Preacher) => {
+  deletePreacherModal.value = true
+  selectedPreacher.value = preacher
+}
+
+const deletePreacher = async () => {
+  isDeletingPreacher.value = true
+  try {
+    const preacherId = selectedPreacher.value?.id as string
+    await PreacherService.deletePreacher(preacherId)
+    isDeletingPreacher.value = false
+    await getPreachers()
+    notyf.success('Preacher deleted successfully')
+  } catch (error) {
+    isDeletingPreacher.value = false
     console.error(error)
   }
 }
@@ -124,12 +148,54 @@ const getPreachers = async () => {
                 }}</span>
               </td>
               <td>
-                <WidgetDropdown />
+                <VDropdown icon="feather:more-vertical" right spaced>
+                  <template #content>
+                    <a
+                      href="#"
+                      role="menuitem"
+                      class="dropdown-item is-media"
+                      @click="openDeletePreacherModal(preacher)"
+                    >
+                      <div class="icon">
+                        <i aria-hidden="true" class="lnil lnil-trash-can-alt"></i>
+                      </div>
+                      <div class="meta">
+                        <span>Delete</span>
+                      </div>
+                    </a>
+                  </template>
+                </VDropdown>
               </td>
             </tr>
           </tbody>
         </VSimpleDatatables>
       </VLoader>
     </div>
+    <VModal
+      :open="deletePreacherModal"
+      size="large"
+      title="Delete Preacher"
+      actions="right"
+      noclose
+      @close="deletePreacherModal = false"
+    >
+      <template #content>
+        <h5 v-if="selectedPreacher" class="has-text-centered">
+          Delete
+          <span class="is-medium-bold"
+            >{{ selectedPreacher.title }} {{ selectedPreacher.name }}</span
+          >
+        </h5>
+      </template>
+      <template #action>
+        <VButton
+          color="primary"
+          :loading="isDeletingPreacher"
+          raised
+          @click="deletePreacher"
+          >Delete</VButton
+        >
+      </template>
+    </VModal>
   </SidebarLayout>
 </template>

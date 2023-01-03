@@ -3,15 +3,40 @@ import { useHead } from '@vueuse/head'
 import { useViewWrapper } from '/@src/stores/viewWrapper'
 import moment from 'moment'
 import algoliasearch from 'algoliasearch/lite'
+import { SermonService } from '/@src/services/sermon.service'
+import { Sermon } from '/@src/interfaces/sermon'
+import { Notyf } from 'notyf'
 
+const notyf = new Notyf()
 const searchClient = ref(algoliasearch('I12U2XGLQV', 'b271ed9dd42677204f390a183509e054'))
 const tableLoading = ref<boolean>(false)
+const isDeletingSermon = ref<boolean>(false)
+const deleteSermonModal = ref<boolean>(false)
+const selectedSermon = ref<Sermon>()
 const viewWrapper = useViewWrapper()
 viewWrapper.setPageTitle('Sermons')
 
 useHead({
   title: 'Sermons - Edify',
 })
+
+const openDeleteSermonModal = (sermon: Sermon) => {
+  deleteSermonModal.value = true
+  selectedSermon.value = sermon
+}
+
+const deleteSermon = async () => {
+  isDeletingSermon.value = true
+  try {
+    const sermonId = selectedSermon.value?.id as string
+    await SermonService.deleteSermon(sermonId)
+    isDeletingSermon.value = false
+    notyf.success('Sermon deleted successfully')
+  } catch (error) {
+    isDeletingSermon.value = false
+    console.error(error)
+  }
+}
 
 //TODO filter series list when a preacher is selected on the form
 </script>
@@ -131,50 +156,7 @@ useHead({
                                     href="#"
                                     role="menuitem"
                                     class="dropdown-item is-media"
-                                  >
-                                    <div class="icon">
-                                      <i aria-hidden="true" class="lnil lnil-reload"></i>
-                                    </div>
-                                    <div class="meta">
-                                      <span>Reload</span>
-                                      <span>Reload Widget</span>
-                                    </div>
-                                  </a>
-
-                                  <a
-                                    href="#"
-                                    role="menuitem"
-                                    class="dropdown-item is-media"
-                                  >
-                                    <div class="icon">
-                                      <i aria-hidden="true" class="lnil lnil-cogs"></i>
-                                    </div>
-                                    <div class="meta">
-                                      <span>Configure</span>
-                                      <span>Configure widget</span>
-                                    </div>
-                                  </a>
-
-                                  <a
-                                    href="#"
-                                    role="menuitem"
-                                    class="dropdown-item is-media"
-                                  >
-                                    <div class="icon">
-                                      <i aria-hidden="true" class="lnil lnil-cog"></i>
-                                    </div>
-                                    <div class="meta">
-                                      <span>Settings</span>
-                                      <span>Widget Settings</span>
-                                    </div>
-                                  </a>
-
-                                  <hr class="dropdown-divider" />
-
-                                  <a
-                                    href="#"
-                                    role="menuitem"
-                                    class="dropdown-item is-media"
+                                    @click="openDeleteSermonModal(sermon)"
                                   >
                                     <div class="icon">
                                       <i
@@ -183,8 +165,7 @@ useHead({
                                       ></i>
                                     </div>
                                     <div class="meta">
-                                      <span>Remove</span>
-                                      <span>Remove from view</span>
+                                      <span>Delete</span>
                                     </div>
                                   </a>
                                 </template>
@@ -206,5 +187,25 @@ useHead({
         </ais-instant-search>
       </VLoader>
     </div>
+    <VModal
+      :open="deleteSermonModal"
+      size="large"
+      title="Delete Sermon"
+      actions="right"
+      noclose
+      @close="deleteSermonModal = false"
+    >
+      <template #content>
+        <h5 v-if="selectedSermon" class="has-text-centered">
+          Delete
+          <span class="is-medium-bold">{{ selectedSermon.title }}</span>
+        </h5>
+      </template>
+      <template #action>
+        <VButton color="primary" :loading="isDeletingSermon" raised @click="deleteSermon"
+          >Delete</VButton
+        >
+      </template>
+    </VModal>
   </SidebarLayout>
 </template>

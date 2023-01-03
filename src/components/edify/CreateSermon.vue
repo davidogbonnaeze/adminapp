@@ -354,7 +354,6 @@ const createSermon = async () => {
     saveButtonLoading.value = false
     addSermonFormOpen.value = false
     notyf.success('Sermon created successfully')
-    // await fetchSermons()
   } catch (error) {
     saveButtonLoading.value = false
     console.error(error)

@@ -6,9 +6,14 @@ import { Topic } from '/@src/interfaces/topic'
 import { TopicService } from '/@src/services/topic.service'
 import moment from 'moment'
 import CreateTopic from '/@src/components/edify/CreateTopic.vue'
+import { Notyf } from 'notyf'
 
+const notyf = new Notyf()
 const topics = ref<Topic[]>([])
 const tableLoading = ref(true)
+const isDeletingTopic = ref<boolean>(false)
+const deleteTopicModal = ref<boolean>(false)
+const selectedTopic = ref<Topic>()
 const viewWrapper = useViewWrapper()
 viewWrapper.setPageTitle('Topics')
 
@@ -26,6 +31,25 @@ const fetchTopics = async () => {
     topics.value = response.data.data
     tableLoading.value = false
   } catch (error) {
+    console.error(error)
+  }
+}
+
+const openDeleteTopicModal = (topic: Topic) => {
+  deleteTopicModal.value = true
+  selectedTopic.value = topic
+}
+
+const deleteTopic = async () => {
+  isDeletingTopic.value = true
+  try {
+    const topicId = selectedTopic.value?.id as string
+    await TopicService.deleteTopic(topicId)
+    isDeletingTopic.value = false
+    await fetchTopics()
+    notyf.success('Topic deleted successfully')
+  } catch (error) {
+    isDeletingTopic.value = false
     console.error(error)
   }
 }
@@ -124,45 +148,17 @@ const fetchTopics = async () => {
               <td>
                 <VDropdown icon="feather:more-vertical" right spaced>
                   <template #content>
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-reload"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Reload</span>
-                        <span>Reload Widget</span>
-                      </div>
-                    </a>
-
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-cogs"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Configure</span>
-                        <span>Configure widget</span>
-                      </div>
-                    </a>
-
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
-                      <div class="icon">
-                        <i aria-hidden="true" class="lnil lnil-cog"></i>
-                      </div>
-                      <div class="meta">
-                        <span>Settings</span>
-                        <span>Widget Settings</span>
-                      </div>
-                    </a>
-
-                    <hr class="dropdown-divider" />
-
-                    <a href="#" role="menuitem" class="dropdown-item is-media">
+                    <a
+                      href="#"
+                      role="menuitem"
+                      class="dropdown-item is-media"
+                      @click="openDeleteTopicModal(topic)"
+                    >
                       <div class="icon">
                         <i aria-hidden="true" class="lnil lnil-trash-can-alt"></i>
                       </div>
                       <div class="meta">
-                        <span>Remove</span>
-                        <span>Remove from view</span>
+                        <span>Delete</span>
                       </div>
                     </a>
                   </template>
@@ -173,5 +169,25 @@ const fetchTopics = async () => {
         </VSimpleDatatables>
       </VLoader>
     </div>
+    <VModal
+      :open="deleteTopicModal"
+      size="large"
+      title="Delete Topic"
+      actions="right"
+      noclose
+      @close="deleteTopicModal = false"
+    >
+      <template #content>
+        <h5 v-if="selectedTopic" class="has-text-centered">
+          Delete
+          <span class="is-medium-bold">{{ selectedTopic.name }}</span>
+        </h5>
+      </template>
+      <template #action>
+        <VButton color="primary" :loading="isDeletingTopic" raised @click="deleteTopic"
+          >Delete</VButton
+        >
+      </template>
+    </VModal>
   </SidebarLayout>
 </template>
