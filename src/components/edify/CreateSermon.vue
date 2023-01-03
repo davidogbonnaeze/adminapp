@@ -165,7 +165,7 @@
                   />
                 </VControl>
               </VField>
-              <CreateCategory :is-text="true" />
+              <CreateCategory :is-text="true" @fetch-categories="fetchCategories" />
             </div>
             <div class="column is-12">
               <VField class="is-image-select" label="Topics">

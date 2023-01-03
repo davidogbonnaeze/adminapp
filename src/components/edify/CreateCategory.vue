@@ -87,6 +87,7 @@ defineProps<{
   isText?: boolean
 }>()
 
+const emit = defineEmits(['fetchCategories'])
 const notyf = new Notyf()
 const saveButtonLoading = ref(false)
 const addCategoryFormOpen = ref(false)
@@ -136,6 +137,7 @@ const createCategory = async () => {
     saveButtonLoading.value = false
     addCategoryFormOpen.value = false
     notyf.success('Category created successfully')
+    emit('fetchCategories')
   } catch (error) {
     saveButtonLoading.value = false
     console.error(error)
