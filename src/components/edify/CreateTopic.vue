@@ -83,6 +83,7 @@ defineProps<{
   isText?: boolean
 }>()
 
+const emit = defineEmits(['fetchTopics'])
 const notyf = new Notyf()
 const saveButtonLoading = ref(false)
 const addTopicFormOpen = ref(false)
@@ -131,6 +132,7 @@ const createTopic = async () => {
     resetFormData()
     saveButtonLoading.value = false
     addTopicFormOpen.value = false
+    emit('fetchTopics')
     notyf.success('Topic created successfully')
   } catch (error) {
     saveButtonLoading.value = false

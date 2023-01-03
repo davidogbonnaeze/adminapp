@@ -182,7 +182,7 @@
                   />
                 </VControl>
               </VField>
-              <CreateTopic :is-text="true" />
+              <CreateTopic :is-text="true" @fetch-topics="fetchTopics" />
             </div>
           </div>
         </div>

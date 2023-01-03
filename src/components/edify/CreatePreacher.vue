@@ -167,7 +167,6 @@ const addPreacherFormData = reactive({
 const saveButtonLoading = ref(false)
 
 const createPreacher = async () => {
-  emit('fetchPreachers')
   saveButtonLoading.value = true
   const formData = new FormData()
   formData.append('preacher_image', addPreacherFormData.preacher_image)
@@ -179,6 +178,7 @@ const createPreacher = async () => {
     resetFormData()
     saveButtonLoading.value = false
     addPreacherFormOpen.value = false
+    emit('fetchPreachers')
     notyf.success('Preacher created successfully')
   } catch (error) {
     saveButtonLoading.value = false
