@@ -155,8 +155,21 @@
       </div>
     </template>
     <template #action>
-      <VButton color="primary" :loading="saveButtonLoading" raised @click="createSeries()"
+      <VButton
+        v-if="!isEdit"
+        color="primary"
+        :loading="saveButtonLoading"
+        raised
+        @click="createSeries"
         >Save</VButton
+      >
+      <VButton
+        v-if="isEdit"
+        color="primary"
+        :loading="saveButtonLoading"
+        raised
+        @click="updateSeries"
+        >Update</VButton
       >
     </template>
   </VModal>
@@ -272,6 +285,23 @@ const createSeries = async () => {
     saveButtonLoading.value = false
     addSeriesFormOpen.value = false
     notyf.success('Series created successfully')
+    emit('fetchSeries')
+  } catch (error) {
+    saveButtonLoading.value = false
+    console.error(error)
+  }
+}
+
+const updateSeries = async () => {
+  saveButtonLoading.value = true
+  const formData = prepareSeriesFormData()
+  const seriesId = props.series?.id as string
+  try {
+    const response = await SeriesService.updateSeries(seriesId, formData)
+    console.log(response)
+    saveButtonLoading.value = false
+    addSeriesFormOpen.value = false
+    notyf.success('Series updated successfully')
     emit('fetchSeries')
   } catch (error) {
     saveButtonLoading.value = false
