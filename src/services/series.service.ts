@@ -12,4 +12,8 @@ export class SeriesService {
   static deleteSeries(seriesId: string) {
     return BaseService.delete(`series/${seriesId}`)
   }
+
+  static updateSeries(seriesId: string, payload: any) {
+    return BaseService.put(`series/${seriesId}`, payload)
+  }
 }

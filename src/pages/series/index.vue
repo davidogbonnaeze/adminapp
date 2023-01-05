@@ -7,9 +7,18 @@ import moment from 'moment'
 import CreateSeries from '/@src/components/edify/CreateSeries.vue'
 import { Series } from '/@src/interfaces/series'
 import { Notyf } from 'notyf'
+import { PreacherService } from '/@src/services/preacher.service'
+import { CategoryService } from '/@src/services/category.service'
+import { TopicService } from '/@src/services/topic.service'
+import { Preacher } from '/@src/interfaces/preacher'
+import { Category } from '/@src/interfaces/category'
+import { Topic } from '/@src/interfaces/topic'
 
 const notyf = new Notyf()
 const seriesList = ref<Series[]>([])
+const preachers = ref<Preacher[]>([])
+const categories = ref<Category[]>([])
+const topics = ref<Topic[]>([])
 const tableLoading = ref(true)
 const isDeletingSeries = ref<boolean>(false)
 const deleteSeriesModal = ref<boolean>(false)
@@ -19,6 +28,9 @@ viewWrapper.setPageTitle('Series')
 
 onMounted(() => {
   fetchSeries()
+  fetchPreachers()
+  fetchCategories()
+  fetchTopics()
 })
 
 useHead({
@@ -30,6 +42,33 @@ const fetchSeries = async () => {
     const response = await SeriesService.getSeries()
     seriesList.value = response.data.data
     tableLoading.value = false
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const fetchPreachers = async () => {
+  try {
+    const response = await PreacherService.getPreachers()
+    preachers.value = response.data.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const fetchCategories = async () => {
+  try {
+    const response = await CategoryService.getCategories()
+    categories.value = response.data.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const fetchTopics = async () => {
+  try {
+    const response = await TopicService.getTopics()
+    topics.value = response.data.data
   } catch (error) {
     console.error(error)
   }
@@ -61,7 +100,11 @@ const deleteSeries = async () => {
     <div class="page-content-inner">
       <div class="list-flex-toolbar flex-list-v1">
         <VButtons>
-          <CreateSeries />
+          <CreateSeries
+            :categories="categories"
+            :preachers="preachers"
+            :topics="topics"
+          />
         </VButtons>
       </div>
       <VLoader :active="tableLoading" size="large">
@@ -176,6 +219,13 @@ const deleteSeries = async () => {
                         <span>Delete</span>
                       </div>
                     </a>
+                    <CreateSeries
+                      :categories="categories"
+                      :preachers="preachers"
+                      :topics="topics"
+                      :is-edit="true"
+                      :series="series"
+                    />
                   </template>
                 </VDropdown>
               </td>

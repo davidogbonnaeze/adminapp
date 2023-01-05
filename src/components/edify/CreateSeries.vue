@@ -1,10 +1,10 @@
 <template>
   <VButton
-    v-if="!isText"
+    v-if="!isText && !isEdit"
     color="primary"
     icon="fas fa-plus"
     elevated
-    @click="addSeriesFormOpen = true"
+    @click="openSeriesModal"
   >
     Add Series
   </VButton>
@@ -15,6 +15,20 @@
   >
     + Add Series
   </button>
+  <a
+    v-if="isEdit"
+    href="#"
+    role="menuitem"
+    class="dropdown-item is-media"
+    @click="openSeriesModal"
+  >
+    <div class="icon">
+      <i aria-hidden="true" class="fa fa-edit"></i>
+    </div>
+    <div class="meta">
+      <span>Edit</span>
+    </div>
+  </a>
   <VModal
     :open="addSeriesFormOpen"
     size="large"
@@ -150,14 +164,16 @@
 
 <script setup lang="ts">
 import { Notyf } from 'notyf'
+import { SeriesService } from '/@src/services/series.service'
+import { Preacher } from '/@src/interfaces/preacher'
+import { Category } from '/@src/interfaces/category'
+import { Topic } from '/@src/interfaces/topic'
+import type { Series } from '/@src/interfaces/series'
 
 const emit = defineEmits(['fetchSeries'])
 const notyf = new Notyf()
-const preachers = ref<Preacher[]>([])
-const categories = ref<Category[]>([])
-const topics = ref<Topic[]>([])
-const topicList = ref([])
-const categoryList = ref([])
+const topicList = ref<string[]>([])
+const categoryList = ref<string[]>([])
 const addSeriesFormOpen = ref(false)
 const addSeriesFormData = reactive({
   title: null as any,
@@ -169,50 +185,33 @@ const addSeriesFormData = reactive({
 })
 const saveButtonLoading = ref(false)
 
-import { PreacherService } from '/@src/services/preacher.service'
-import { CategoryService } from '/@src/services/category.service'
-import { TopicService } from '/@src/services/topic.service'
-import { SeriesService } from '/@src/services/series.service'
-import { onMounted, reactive, ref } from 'vue'
-import { Preacher } from '/@src/interfaces/preacher'
-import { Category } from '/@src/interfaces/category'
-import { Topic } from '/@src/interfaces/topic'
-
-defineProps<{
+const props = defineProps<{
+  preachers: Preacher[]
+  categories: Category[]
+  topics: Topic[]
   isText?: boolean
+  isEdit?: boolean
+  series?: Series
 }>()
 
-onMounted(() => {
-  fetchPreachers()
-  fetchCategories()
-  fetchTopics()
-})
-
-const fetchPreachers = async () => {
-  try {
-    const response = await PreacherService.getPreachers()
-    preachers.value = response.data.data
-  } catch (error) {
-    console.error(error)
+const openSeriesModal = () => {
+  if (props.series) {
+    const series = props.series
+    const topicIds: string[] = []
+    const categoryIds: string[] = []
+    series.topics.forEach((topic) => {
+      topicIds.push(topic.id)
+    })
+    series.categories.forEach((category) => {
+      categoryIds.push(category.id)
+    })
+    addSeriesFormData.title = series.title
+    addSeriesFormData.preacher_id = series.preacher_id
+    topicList.value = topicIds
+    categoryList.value = categoryIds
+    addSeriesFormData.release_date = series.release_date
   }
-}
-
-const fetchCategories = async () => {
-  try {
-    const response = await CategoryService.getCategories()
-    categories.value = response.data.data
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-const fetchTopics = async () => {
-  try {
-    const response = await TopicService.getTopics()
-    topics.value = response.data.data
-  } catch (error) {
-    console.error(error)
-  }
+  addSeriesFormOpen.value = true
 }
 
 const onAddSeriesImage = (error: any, fileInfo: any) => {
@@ -244,11 +243,12 @@ const resetFormData = () => {
   addSeriesFormData.series_image = null
 }
 
-const createSeries = async () => {
-  saveButtonLoading.value = true
+const prepareSeriesFormData = () => {
   const formData = new FormData()
   formData.append('release_date', addSeriesFormData.release_date)
-  formData.append('series_image', addSeriesFormData.series_image)
+  if (addSeriesFormData.series_image) {
+    formData.append('series_image', addSeriesFormData.series_image)
+  }
   formData.append('title', addSeriesFormData.title)
   formData.append('duration', 1200)
   formData.append('preacher_id', addSeriesFormData.preacher_id)
@@ -259,7 +259,12 @@ const createSeries = async () => {
   for (const category_id of categoryList.value) {
     formData.append('category_ids', category_id)
   }
+  return formData
+}
 
+const createSeries = async () => {
+  saveButtonLoading.value = true
+  const formData = prepareSeriesFormData()
   try {
     const response = await SeriesService.createSeries(formData)
     console.log(response)

@@ -12,4 +12,8 @@ export class PreacherService {
   static deletePreacher(preacherId: string) {
     return BaseService.delete(`preacher/${preacherId}`)
   }
+
+  static updatePreacher(preacherId: string, payload: any) {
+    return BaseService.put(`preacher/${preacherId}`, payload)
+  }
 }

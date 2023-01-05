@@ -168,6 +168,14 @@ const deleteSermon = async () => {
                                       <span>Delete</span>
                                     </div>
                                   </a>
+                                  <hr class="dropdown-divider" />
+                                  <a
+                                    href="#"
+                                    role="menuitem"
+                                    class="dropdown-item is-media"
+                                  >
+                                    <!--                                    <CreateSermon :isText="true" :sermon="sermon" />-->
+                                  </a>
                                 </template>
                               </VDropdown>
                             </td>

@@ -12,4 +12,8 @@ export class CategoryService {
   static deleteCategory(categoryId: string) {
     return BaseService.delete(`category/${categoryId}`)
   }
+
+  static updateCategory(categoryId: string, payload: any) {
+    return BaseService.put(`category/${categoryId}`, payload)
+  }
 }

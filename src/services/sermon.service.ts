@@ -12,4 +12,8 @@ export class SermonService {
   static deleteSermon(sermonId: string) {
     return BaseService.delete(`sermon/${sermonId}`)
   }
+
+  static updateSermon(sermonId: string, payload: any) {
+    return BaseService.put(`sermon/${sermonId}`, payload)
+  }
 }

@@ -213,6 +213,11 @@ import { CategoryService } from '/@src/services/category.service'
 import { TopicService } from '/@src/services/topic.service'
 import { SeriesService } from '/@src/services/series.service'
 
+const props = defineProps<{
+  sermon?: any
+}>()
+
+console.log(props.sermon, 'sermon')
 const notyf = new Notyf()
 const topicList = ref([])
 const categoryList = ref([])
@@ -239,6 +244,8 @@ onMounted(() => {
   fetchCategories()
   fetchTopics()
 })
+
+// console.log(sermon, 'sermon')
 
 const fetchPreachers = async () => {
   try {

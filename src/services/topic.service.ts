@@ -12,4 +12,8 @@ export class TopicService {
   static deleteTopic(topicId: string) {
     return BaseService.delete(`topic/${topicId}`)
   }
+
+  static updateTopic(topicId: string, payload: any) {
+    return BaseService.put(`topic/${topicId}`, payload)
+  }
 }
