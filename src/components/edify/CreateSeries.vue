@@ -259,9 +259,7 @@ const resetFormData = () => {
 const prepareSeriesFormData = () => {
   const formData = new FormData()
   formData.append('release_date', addSeriesFormData.release_date)
-  if (addSeriesFormData.series_image) {
-    formData.append('series_image', addSeriesFormData.series_image)
-  }
+  formData.append('series_image', addSeriesFormData.series_image)
   formData.append('title', addSeriesFormData.title)
   formData.append('duration', 1200)
   formData.append('preacher_id', addSeriesFormData.preacher_id)
@@ -273,6 +271,17 @@ const prepareSeriesFormData = () => {
     formData.append('category_ids', category_id)
   }
   return formData
+}
+
+const prepareUpdateSeriesPayload = () => {
+  const payload = {
+    release_date: addSeriesFormData.release_date,
+    title: addSeriesFormData.title,
+    preacher_id: addSeriesFormData.preacher_id,
+    topic_ids: topicList.value,
+    category_ids: categoryList.value,
+  }
+  return payload
 }
 
 const createSeries = async () => {
@@ -294,10 +303,10 @@ const createSeries = async () => {
 
 const updateSeries = async () => {
   saveButtonLoading.value = true
-  const formData = prepareSeriesFormData()
+  const payload = prepareUpdateSeriesPayload()
   const seriesId = props.series?.id as string
   try {
-    const response = await SeriesService.updateSeries(seriesId, formData)
+    const response = await SeriesService.updateSeries(seriesId, payload)
     console.log(response)
     saveButtonLoading.value = false
     addSeriesFormOpen.value = false
