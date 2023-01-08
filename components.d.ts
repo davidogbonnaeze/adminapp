@@ -373,6 +373,7 @@ declare module '@vue/runtime-core' {
     UIWidgetToolbarFollowers: typeof import('./src/components/partials/widgets/ui-creative/toolbar/UIWidgetToolbarFollowers.vue')['default']
     UIWidgetToolbarIcon: typeof import('./src/components/partials/widgets/ui-creative/toolbar/UIWidgetToolbarIcon.vue')['default']
     UIWidgetToolbarIcons: typeof import('./src/components/partials/widgets/ui-creative/toolbar/UIWidgetToolbarIcons.vue')['default']
+    UpdateSeries: typeof import('./src/components/edify/Update/UpdateSeries.vue')['default']
     UserCardDropdown: typeof import('./src/components/partials/dropdowns/UserCardDropdown.vue')['default']
     UserPopoverContent: typeof import('./src/components/partials/popover/UserPopoverContent.vue')['default']
     UserProfileDropdown: typeof import('./src/components/partials/dropdowns/UserProfileDropdown.vue')['default']

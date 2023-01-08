@@ -13,6 +13,7 @@ import { TopicService } from '/@src/services/topic.service'
 import { Preacher } from '/@src/interfaces/preacher'
 import { Category } from '/@src/interfaces/category'
 import { Topic } from '/@src/interfaces/topic'
+import UpdateSeries from '/@src/components/edify/Update/UpdateSeries.vue'
 
 const notyf = new Notyf()
 const seriesList = ref<Series[]>([])
@@ -219,11 +220,10 @@ const deleteSeries = async () => {
                         <span>Delete</span>
                       </div>
                     </a>
-                    <CreateSeries
+                    <UpdateSeries
                       :categories="categories"
                       :preachers="preachers"
                       :topics="topics"
-                      :is-edit="true"
                       :series="series"
                     />
                   </template>

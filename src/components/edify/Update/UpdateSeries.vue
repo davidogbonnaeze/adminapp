@@ -1,20 +1,12 @@
 <template>
-  <VButton
-    v-if="!isText"
-    color="primary"
-    icon="fas fa-plus"
-    elevated
-    @click="addSeriesFormOpen = true"
-  >
-    Add Series
-  </VButton>
-  <button
-    v-if="isText"
-    class="text-is-primary comp-inline"
-    @click="addSeriesFormOpen = true"
-  >
-    + Add Series
-  </button>
+  <a href="#" role="menuitem" class="dropdown-item is-media" @click="openSeriesModal">
+    <div class="icon">
+      <i aria-hidden="true" class="fa fa-edit"></i>
+    </div>
+    <div class="meta">
+      <span>Edit</span>
+    </div>
+  </a>
   <VModal
     :open="addSeriesFormOpen"
     size="large"
@@ -60,32 +52,6 @@
                     {{ option.title }} {{ option.name }}
                   </template>
                 </Multiselect>
-              </VControl>
-            </VField>
-          </div>
-          <div class="column is-6">
-            <VField label="Series Image *">
-              <VControl>
-                <VFilePond
-                  class="profile-filepond"
-                  name="profile_filepond"
-                  :chunk-retry-delays="[500, 1000, 3000]"
-                  label-idle="<i class='lnil lnil-cloud-upload'></i>"
-                  :accepted-file-types="['image/png']"
-                  :drop-validation="true"
-                  :image-preview-height="140"
-                  :image-resize-target-width="140"
-                  :image-resize-target-height="140"
-                  image-crop-aspect-ratio="1:1"
-                  style-panel-layout="compact circle"
-                  style-panel-aspext-ratio="1:1"
-                  style-load-indicator-position="center bottom"
-                  style-progress-indicator-position="right bottom"
-                  style-button-remove-item-position="left bottom"
-                  style-button-process-item-position="right bottom"
-                  @addfile="onAddSeriesImage"
-                  @removefile="onRemoveSeriesImage"
-                />
               </VControl>
             </VField>
           </div>
@@ -141,8 +107,8 @@
       </div>
     </template>
     <template #action>
-      <VButton color="primary" :loading="saveButtonLoading" raised @click="createSeries"
-        >Save</VButton
+      <VButton color="primary" :loading="saveButtonLoading" raised @click="updateSeries"
+        >Update</VButton
       >
     </template>
   </VModal>
@@ -154,6 +120,7 @@ import { SeriesService } from '/@src/services/series.service'
 import { Preacher } from '/@src/interfaces/preacher'
 import { Category } from '/@src/interfaces/category'
 import { Topic } from '/@src/interfaces/topic'
+import type { Series } from '/@src/interfaces/series'
 
 const emit = defineEmits(['fetchSeries'])
 const notyf = new Notyf()
@@ -170,69 +137,56 @@ const addSeriesFormData = reactive({
 })
 const saveButtonLoading = ref(false)
 
-defineProps<{
+const props = defineProps<{
   preachers: Preacher[]
   categories: Category[]
   topics: Topic[]
   isText?: boolean
+  isEdit?: boolean
+  series?: Series
 }>()
 
-const onAddSeriesImage = (error: any, fileInfo: any) => {
-  if (error) {
-    console.error(error)
-    return
+const openSeriesModal = () => {
+  if (props.series) {
+    const series = props.series
+    const topicIds: string[] = []
+    const categoryIds: string[] = []
+    series.topics.forEach((topic) => {
+      topicIds.push(topic.id)
+    })
+    series.categories.forEach((category) => {
+      categoryIds.push(category.id)
+    })
+    addSeriesFormData.title = series.title
+    addSeriesFormData.preacher_id = series.preacher_id
+    topicList.value = topicIds
+    categoryList.value = categoryIds
+    addSeriesFormData.release_date = series.release_date
   }
-
-  const _file = fileInfo.file as File
-  if (_file) {
-    addSeriesFormData.series_image = _file
-  }
+  addSeriesFormOpen.value = true
 }
 
-const onRemoveSeriesImage = (error: any) => {
-  if (error) {
-    console.error(error)
-    return
+const prepareUpdateSeriesPayload = () => {
+  const payload = {
+    release_date: addSeriesFormData.release_date,
+    title: addSeriesFormData.title,
+    preacher_id: addSeriesFormData.preacher_id,
+    topic_ids: topicList.value,
+    category_ids: categoryList.value,
   }
-  addSeriesFormData.series_image = null
+  return payload
 }
 
-const resetFormData = () => {
-  addSeriesFormData.title = null
-  addSeriesFormData.release_date = null
-  addSeriesFormData.preacher_id = null
-  addSeriesFormData.category_ids = null
-  addSeriesFormData.topic_ids = null
-  addSeriesFormData.series_image = null
-}
-
-const prepareSeriesFormData = () => {
-  const formData = new FormData()
-  formData.append('release_date', addSeriesFormData.release_date)
-  formData.append('series_image', addSeriesFormData.series_image)
-  formData.append('title', addSeriesFormData.title)
-  formData.append('duration', 1200)
-  formData.append('preacher_id', addSeriesFormData.preacher_id)
-  //TODO Handle scenario when topicList or categoryList contains only one value
-  for (const topic_id of topicList.value) {
-    formData.append('topic_ids', topic_id)
-  }
-  for (const category_id of categoryList.value) {
-    formData.append('category_ids', category_id)
-  }
-  return formData
-}
-
-const createSeries = async () => {
+const updateSeries = async () => {
   saveButtonLoading.value = true
-  const formData = prepareSeriesFormData()
+  const payload = prepareUpdateSeriesPayload()
+  const seriesId = props.series?.id as string
   try {
-    const response = await SeriesService.createSeries(formData)
+    const response = await SeriesService.updateSeries(seriesId, payload)
     console.log(response)
-    resetFormData()
     saveButtonLoading.value = false
     addSeriesFormOpen.value = false
-    notyf.success('Series created successfully')
+    notyf.success('Series updated successfully')
     emit('fetchSeries')
   } catch (error) {
     saveButtonLoading.value = false
