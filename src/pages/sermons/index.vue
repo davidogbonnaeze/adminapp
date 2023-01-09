@@ -6,6 +6,16 @@ import algoliasearch from 'algoliasearch/lite'
 import { SermonService } from '/@src/services/sermon.service'
 import { Sermon } from '/@src/interfaces/sermon'
 import { Notyf } from 'notyf'
+import UpdateSermon from '/@src/components/edify/Update/UpdateSermon.vue'
+import { PreacherService } from '/@src/services/preacher.service'
+import { CategoryService } from '/@src/services/category.service'
+import { TopicService } from '/@src/services/topic.service'
+import { SeriesService } from '/@src/services/series.service'
+import { onMounted, ref } from 'vue'
+import { Preacher } from '/@src/interfaces/preacher'
+import { Series } from '/@src/interfaces/series'
+import { Category } from '/@src/interfaces/category'
+import { Topic } from '/@src/interfaces/topic'
 
 const notyf = new Notyf()
 const searchClient = ref(algoliasearch('I12U2XGLQV', 'b271ed9dd42677204f390a183509e054'))
@@ -13,12 +23,59 @@ const tableLoading = ref<boolean>(false)
 const isDeletingSermon = ref<boolean>(false)
 const deleteSermonModal = ref<boolean>(false)
 const selectedSermon = ref<Sermon>()
+const preachers = ref<Preacher[]>([])
+const series = ref<Series[]>([])
+const categories = ref<Category[]>([])
+const topics = ref<Topic[]>([])
 const viewWrapper = useViewWrapper()
 viewWrapper.setPageTitle('Sermons')
 
 useHead({
   title: 'Sermons - Edify',
 })
+
+onMounted(() => {
+  fetchPreachers()
+  fetchSeries()
+  fetchCategories()
+  fetchTopics()
+})
+
+const fetchPreachers = async () => {
+  try {
+    const response = await PreacherService.getPreachers()
+    preachers.value = response.data.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const fetchCategories = async () => {
+  try {
+    const response = await CategoryService.getCategories()
+    categories.value = response.data.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const fetchTopics = async () => {
+  try {
+    const response = await TopicService.getTopics()
+    topics.value = response.data.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const fetchSeries = async () => {
+  try {
+    const response = await SeriesService.getSeries()
+    series.value = response.data.data
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 const openDeleteSermonModal = (sermon: Sermon) => {
   deleteSermonModal.value = true
@@ -169,13 +226,13 @@ const deleteSermon = async () => {
                                     </div>
                                   </a>
                                   <hr class="dropdown-divider" />
-                                  <a
-                                    href="#"
-                                    role="menuitem"
-                                    class="dropdown-item is-media"
-                                  >
-                                    <!--                                    <CreateSermon :isText="true" :sermon="sermon" />-->
-                                  </a>
+                                  <UpdateSermon
+                                    :preachers="preachers"
+                                    :topics="topics"
+                                    :categories="categories"
+                                    :series="series"
+                                    :sermon="sermon"
+                                  />
                                 </template>
                               </VDropdown>
                             </td>

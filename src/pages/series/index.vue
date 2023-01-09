@@ -4,7 +4,7 @@ import { useViewWrapper } from '/@src/stores/viewWrapper'
 import { onMounted, ref } from 'vue'
 import { SeriesService } from '/@src/services/series.service'
 import moment from 'moment'
-import CreateSeries from '/@src/components/edify/CreateSeries.vue'
+import CreateSeries from '/@src/components/edify/Create/CreateSeries.vue'
 import { Series } from '/@src/interfaces/series'
 import { Notyf } from 'notyf'
 import { PreacherService } from '/@src/services/preacher.service'
@@ -220,11 +220,13 @@ const deleteSeries = async () => {
                         <span>Delete</span>
                       </div>
                     </a>
+                    <hr class="dropdown-divider" />
                     <UpdateSeries
                       :categories="categories"
                       :preachers="preachers"
                       :topics="topics"
                       :series="series"
+                      @fetch-series="fetchSeries"
                     />
                   </template>
                 </VDropdown>

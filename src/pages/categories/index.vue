@@ -5,8 +5,9 @@ import { onMounted, ref } from 'vue'
 import { Category } from '/@src/interfaces/category'
 import { CategoryService } from '/@src/services/category.service'
 import moment from 'moment'
-import CreateCategory from '/@src/components/edify/CreateCategory.vue'
+import CreateCategory from '/@src/components/edify/Create/CreateCategory.vue'
 import { Notyf } from 'notyf'
+import UpdateCategory from '/@src/components/edify/Update/UpdateCategory.vue'
 
 const notyf = new Notyf()
 const categories = ref<Category[]>([])
@@ -161,6 +162,11 @@ const deleteCategory = async () => {
                         <span>Delete</span>
                       </div>
                     </a>
+                    <hr class="dropdown-divider" />
+                    <UpdateCategory
+                      :category="category"
+                      @fetch-categories="fetchCategories"
+                    />
                   </template>
                 </VDropdown>
               </td>

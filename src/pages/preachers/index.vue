@@ -163,6 +163,11 @@ const deletePreacher = async () => {
                         <span>Delete</span>
                       </div>
                     </a>
+                    <hr class="dropdown-divider" />
+                    <UpdatePreacher
+                      :preacher="preacher"
+                      @fetch-preachers="getPreachers"
+                    />
                   </template>
                 </VDropdown>
               </td>

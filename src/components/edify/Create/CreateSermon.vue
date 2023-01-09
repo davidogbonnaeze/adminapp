@@ -85,7 +85,13 @@
                   </Multiselect>
                 </VControl>
               </VField>
-              <CreateSeries :is-text="true" @fetch-series="fetchSeries" />
+              <CreateSeries
+                :is-text="true"
+                :topics="topics"
+                :categories="categories"
+                :preachers="preachers"
+                @fetch-series="fetchSeries"
+              />
             </div>
             <div class="column is-6">
               <VField label="Sermon Image *">
@@ -213,11 +219,6 @@ import { CategoryService } from '/@src/services/category.service'
 import { TopicService } from '/@src/services/topic.service'
 import { SeriesService } from '/@src/services/series.service'
 
-const props = defineProps<{
-  sermon?: any
-}>()
-
-console.log(props.sermon, 'sermon')
 const notyf = new Notyf()
 const topicList = ref([])
 const categoryList = ref([])
@@ -244,8 +245,6 @@ onMounted(() => {
   fetchCategories()
   fetchTopics()
 })
-
-// console.log(sermon, 'sermon')
 
 const fetchPreachers = async () => {
   try {

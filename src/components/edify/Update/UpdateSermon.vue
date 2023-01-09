@@ -8,21 +8,21 @@
     </div>
   </a>
   <VModal
-    :open="openUpdateSeriesModal"
+    :open="openUpdateSermonModal"
     size="large"
-    title="Add Series"
+    title="Add Sermon"
     actions="right"
     noclose
-    @close="openUpdateSeriesModal = false"
+    @close="openUpdateSermonModal = false"
   >
     <template #content>
       <div class="modal-form">
         <div class="columns is-multiline">
           <div class="column is-12">
-            <VField label="Series Title *">
+            <VField label="Sermon Title *">
               <VControl>
                 <VInput
-                  v-model="updateSeriesFormData.title"
+                  v-model="updateSermonFormData.title"
                   type="text"
                   placeholder="Ex: Redeeming the time"
                 />
@@ -33,7 +33,7 @@
             <VField class="is-image-select" label="Preacher *">
               <VControl>
                 <Multiselect
-                  v-model="updateSeriesFormData.preacher_id"
+                  v-model="updateSermonFormData.preacher_id"
                   placeholder="Select Preacher"
                   track-by="name"
                   label="name"
@@ -48,8 +48,37 @@
                       {{ value.title }} {{ value.name }}
                     </div>
                   </template>
+                  <template #option="{ option }"
+                    >x {{ option.title }} {{ option.name }}
+                  </template>
+                </Multiselect>
+              </VControl>
+            </VField>
+          </div>
+          <div class="column is-12">
+            <VField
+              class="is-image-select"
+              label="Series (leave blank if sermon is not associated with any series)"
+            >
+              <VControl>
+                <Multiselect
+                  v-model="updateSermonFormData.series_id"
+                  placeholder="Select Series"
+                  track-by="title"
+                  label="title"
+                  value-prop="id"
+                  :search="true"
+                  :options="series"
+                  :max-height="145"
+                  :searchable="true"
+                >
+                  <template #singlelabel="{ value }">
+                    <div class="multiselect-single-label">
+                      {{ value.title }}
+                    </div>
+                  </template>
                   <template #option="{ option }">
-                    {{ option.title }} {{ option.name }}
+                    {{ option.title }}
                   </template>
                 </Multiselect>
               </VControl>
@@ -57,7 +86,7 @@
           </div>
           <div class="column is-12">
             <VDatePicker
-              v-model="updateSeriesFormData.release_date"
+              v-model="updateSermonFormData.release_date"
               :model-config="{ type: 'string', mask: 'iso' }"
               color="green"
               trim-weeks
@@ -107,7 +136,7 @@
       </div>
     </template>
     <template #action>
-      <VButton color="primary" :loading="saveButtonLoading" raised @click="updateSeries"
+      <VButton color="primary" :loading="saveButtonLoading" raised @click="updateSermon"
         >Update</VButton
       >
     </template>
@@ -115,76 +144,79 @@
 </template>
 
 <script setup lang="ts">
-import { Notyf } from 'notyf'
-import { SeriesService } from '/@src/services/series.service'
 import { Preacher } from '/@src/interfaces/preacher'
 import { Category } from '/@src/interfaces/category'
 import { Topic } from '/@src/interfaces/topic'
-import type { Series } from '/@src/interfaces/series'
-
-const emit = defineEmits(['fetchSeries'])
-const notyf = new Notyf()
-const topicList = ref<string[]>([])
-const categoryList = ref<string[]>([])
-const openUpdateSeriesModal = ref(false)
-const updateSeriesFormData = reactive({
-  title: null as any,
-  release_date: null as any,
-  preacher_id: null as any,
-  series_image: null as any,
-  category_ids: null as any,
-  topic_ids: null as any,
-})
-const saveButtonLoading = ref(false)
+import { Sermon } from '/@src/interfaces/sermon'
+import { Notyf } from 'notyf'
+import { reactive, ref } from 'vue'
+import { SermonService } from '/@src/services/sermon.service'
+import { Series } from '/@src/interfaces/series'
 
 const props = defineProps<{
   preachers: Preacher[]
   categories: Category[]
   topics: Topic[]
-  series: Series
+  series: Series[]
+  sermon: Sermon
 }>()
 
+const notyf = new Notyf()
+const topicList = ref<string[]>([])
+const categoryList = ref<string[]>([])
+const openUpdateSermonModal = ref(false)
+const updateSermonFormData = reactive({
+  title: null as any,
+  preacher_id: null as any,
+  release_date: null as any,
+  series_id: null as any,
+  category_ids: null as any,
+  topic_ids: null as any,
+})
+const saveButtonLoading = ref(false)
+
 const openUpdateModal = () => {
-  if (props.series) {
-    const series = props.series
+  if (props.sermon) {
+    const sermon = props.sermon
     const topicIds: string[] = []
     const categoryIds: string[] = []
-    series.topics.forEach((topic) => {
+    sermon.topics.forEach((topic) => {
       topicIds.push(topic.id)
     })
-    series.categories.forEach((category) => {
+    sermon.categories.forEach((category) => {
       categoryIds.push(category.id)
     })
-    updateSeriesFormData.title = series.title
-    updateSeriesFormData.preacher_id = series.preacher_id
+    updateSermonFormData.title = sermon.title
+    updateSermonFormData.preacher_id = sermon.preacher_id
+    updateSermonFormData.release_date = sermon.release_date
+    updateSermonFormData.series_id = sermon.series_id
     topicList.value = topicIds
     categoryList.value = categoryIds
-    updateSeriesFormData.release_date = series.release_date
   }
-  openUpdateSeriesModal.value = true
+  openUpdateSermonModal.value = true
 }
 
-const prepareUpdateSeriesPayload = () => {
+const prepareUpdateSermonPayload = () => {
   const payload = {
-    release_date: updateSeriesFormData.release_date,
-    title: updateSeriesFormData.title,
-    preacher_id: updateSeriesFormData.preacher_id,
+    release_date: updateSermonFormData.release_date,
+    title: updateSermonFormData.title,
+    preacher_id: updateSermonFormData.preacher_id,
+    series_id: updateSermonFormData.series_id,
     topic_ids: topicList.value,
     category_ids: categoryList.value,
   }
   return payload
 }
 
-const updateSeries = async () => {
+const updateSermon = async () => {
   saveButtonLoading.value = true
-  const payload = prepareUpdateSeriesPayload()
+  const payload = prepareUpdateSermonPayload()
   try {
-    const response = await SeriesService.updateSeries(props.series.id, payload)
+    const response = await SermonService.updateSermon(props.sermon.id, payload)
     console.log(response)
     saveButtonLoading.value = false
-    openUpdateSeriesModal.value = false
-    notyf.success('Series updated successfully')
-    emit('fetchSeries')
+    openUpdateSermonModal.value = false
+    notyf.success('Sermon updated successfully')
   } catch (error) {
     saveButtonLoading.value = false
     console.error(error)

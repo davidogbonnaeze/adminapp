@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue'
 import { Topic } from '/@src/interfaces/topic'
 import { TopicService } from '/@src/services/topic.service'
 import moment from 'moment'
-import CreateTopic from '/@src/components/edify/CreateTopic.vue'
+import CreateTopic from '/@src/components/edify/Create/CreateTopic.vue'
 import { Notyf } from 'notyf'
 
 const notyf = new Notyf()
@@ -161,6 +161,8 @@ const deleteTopic = async () => {
                         <span>Delete</span>
                       </div>
                     </a>
+                    <hr class="dropdown-divider" />
+                    <UpdateTopic :topic="topic" @fetch-topics="fetchTopics" />
                   </template>
                 </VDropdown>
               </td>
