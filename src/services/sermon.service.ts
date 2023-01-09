@@ -20,4 +20,8 @@ export class SermonService {
   static updateSermonImage(sermonId: string, payload: any) {
     return BaseService.patch(`sermon/${sermonId}/image`, payload)
   }
+
+  static updateSermonAudio(sermonId: string, payload: any) {
+    return BaseService.patch(`sermon/${sermonId}/audio`, payload)
+  }
 }

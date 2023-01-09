@@ -233,6 +233,9 @@ const deleteSermon = async () => {
                                     :series="series"
                                     :sermon="sermon"
                                   />
+                                  <hr class="dropdown-divider" />
+                                  <UpdateSermonImage :sermon="sermon" />
+                                  <UpdateSermonAudio :sermon="sermon" />
                                 </template>
                               </VDropdown>
                             </td>

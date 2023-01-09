@@ -167,6 +167,11 @@ const deleteCategory = async () => {
                       :category="category"
                       @fetch-categories="fetchCategories"
                     />
+                    <hr class="dropdown-divider" />
+                    <UpdateCategoryImage
+                      :category="category"
+                      @fetch-categories="fetchCategories"
+                    />
                   </template>
                 </VDropdown>
               </td>

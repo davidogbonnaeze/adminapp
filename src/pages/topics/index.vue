@@ -163,6 +163,8 @@ const deleteTopic = async () => {
                     </a>
                     <hr class="dropdown-divider" />
                     <UpdateTopic :topic="topic" @fetch-topics="fetchTopics" />
+                    <hr class="dropdown-divider" />
+                    <UpdateTopicImage :topic="topic" @fetch-topics="fetchTopics" />
                   </template>
                 </VDropdown>
               </td>

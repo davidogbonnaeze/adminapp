@@ -168,6 +168,11 @@ const deletePreacher = async () => {
                       :preacher="preacher"
                       @fetch-preachers="getPreachers"
                     />
+                    <hr class="dropdown-divider" />
+                    <UpdatePreacherImage
+                      :preacher="preacher"
+                      @fetch-preachers="getPreachers"
+                    />
                   </template>
                 </VDropdown>
               </td>

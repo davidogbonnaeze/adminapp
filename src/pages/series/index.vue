@@ -14,7 +14,6 @@ import { Preacher } from '/@src/interfaces/preacher'
 import { Category } from '/@src/interfaces/category'
 import { Topic } from '/@src/interfaces/topic'
 import UpdateSeries from '/@src/components/edify/Update/UpdateSeries.vue'
-import UpdateSeriesFile from '/@src/components/edify/FileUpdate/UpdateSeriesFile.vue'
 
 const notyf = new Notyf()
 const seriesList = ref<Series[]>([])
@@ -230,7 +229,7 @@ const deleteSeries = async () => {
                       @fetch-series="fetchSeries"
                     />
                     <hr class="dropdown-divider" />
-                    <UpdateSeriesFile :series="series" @fetch-series="fetchSeries" />
+                    <UpdateSeriesImage :series="series" @fetch-series="fetchSeries" />
                   </template>
                 </VDropdown>
               </td>
