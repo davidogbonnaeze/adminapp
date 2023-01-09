@@ -16,4 +16,8 @@ export class TopicService {
   static updateTopic(topicId: string, payload: any) {
     return BaseService.put(`topic/${topicId}`, payload)
   }
+
+  static updateTopicImage(topicId: string, payload: any) {
+    return BaseService.patch(`topic/${topicId}/image`, payload)
+  }
 }

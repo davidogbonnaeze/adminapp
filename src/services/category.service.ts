@@ -16,4 +16,8 @@ export class CategoryService {
   static updateCategory(categoryId: string, payload: any) {
     return BaseService.put(`category/${categoryId}`, payload)
   }
+
+  static updateCategoryImage(categoryId: string, payload: any) {
+    return BaseService.patch(`category/${categoryId}/image`, payload)
+  }
 }

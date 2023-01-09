@@ -16,4 +16,8 @@ export class SermonService {
   static updateSermon(sermonId: string, payload: any) {
     return BaseService.put(`sermon/${sermonId}`, payload)
   }
+
+  static updateSermonImage(sermonId: string, payload: any) {
+    return BaseService.patch(`sermon/${sermonId}/image`, payload)
+  }
 }

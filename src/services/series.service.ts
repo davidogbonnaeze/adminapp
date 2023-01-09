@@ -16,4 +16,8 @@ export class SeriesService {
   static updateSeries(seriesId: string, payload: any) {
     return BaseService.put(`series/${seriesId}`, payload)
   }
+
+  static updateSeriesImage(seriesId: string, payload: any) {
+    return BaseService.patch(`series/${seriesId}/image`, payload)
+  }
 }
