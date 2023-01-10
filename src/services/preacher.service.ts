@@ -18,6 +18,6 @@ export class PreacherService {
   }
 
   static updatePreacherImage(preacherId: string, payload: any) {
-    return BaseService.put(`preacher/${preacherId}/image`, payload)
+    return BaseService.patch(`preacher/${preacherId}/image`, payload)
   }
 }
