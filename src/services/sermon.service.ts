@@ -9,19 +9,23 @@ export class SermonService {
     return BaseService.get('sermon?relations=preacher,series')
   }
 
-  static deleteSermon(sermonId: string) {
-    return BaseService.delete(`sermon/${sermonId}`)
+  static deleteSermon(sermonId: string, objectId: string) {
+    return BaseService.delete(`sermon/${sermonId}`, { params: { objectId } })
   }
 
-  static updateSermon(sermonId: string, payload: any) {
-    return BaseService.put(`sermon/${sermonId}`, payload)
+  static updateSermon(sermonId: string, objectId: string, payload: any) {
+    return BaseService.put(`sermon/${sermonId}`, payload, { params: { objectId } })
   }
 
-  static updateSermonImage(sermonId: string, payload: any) {
-    return BaseService.patch(`sermon/${sermonId}/image`, payload)
+  static updateSermonImage(sermonId: string, objectId: string, payload: any) {
+    return BaseService.patch(`sermon/${sermonId}/image`, payload, {
+      params: { objectId },
+    })
   }
 
-  static updateSermonAudio(sermonId: string, payload: any) {
-    return BaseService.patch(`sermon/${sermonId}/audio`, payload)
+  static updateSermonAudio(sermonId: string, objectId: string, payload: any) {
+    return BaseService.patch(`sermon/${sermonId}/audio`, payload, {
+      params: { objectId },
+    })
   }
 }

@@ -99,7 +99,11 @@ const upload = async () => {
   const formData = new FormData()
   formData.append('sermon_image', uploadFormData.sermon_image)
   try {
-    const response = await SermonService.updateSermonImage(props.sermon.id, formData)
+    const response = await SermonService.updateSermonImage(
+      props.sermon.id,
+      props.sermon.objectID,
+      formData
+    )
     console.log(response)
     uploadFormData.sermon_image = null
     isUploadingFile.value = false
