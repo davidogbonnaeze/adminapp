@@ -23,5 +23,4 @@ export interface Sermon {
   isLiked?: boolean
   created_at: Date
   updated_at: Date
-  objectID: string
 }

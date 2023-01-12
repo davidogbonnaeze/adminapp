@@ -212,11 +212,7 @@ const updateSermon = async () => {
   saveButtonLoading.value = true
   const payload = prepareUpdateSermonPayload()
   try {
-    const response = await SermonService.updateSermon(
-      props.sermon.id,
-      props.sermon.objectID,
-      payload
-    )
+    const response = await SermonService.updateSermon(props.sermon.id, payload)
     console.log(response)
     saveButtonLoading.value = false
     openUpdateSermonModal.value = false
