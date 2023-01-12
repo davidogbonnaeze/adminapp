@@ -31,7 +31,6 @@ const handleLogin = async () => {
     const response = await AuthService.login(payload)
     const accessToken = response.data.data
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
-    console.log(accessToken, 'accessToken')
     userSession.setToken(accessToken)
 
     notif.dismissAll()
