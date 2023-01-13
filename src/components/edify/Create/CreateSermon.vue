@@ -127,7 +127,7 @@
                     name="profile_filepond"
                     :chunk-retry-delays="[500, 1000, 3000]"
                     label-idle="<i class='lnil lnil-cloud-upload'></i>"
-                    :accepted-file-types="['audio/mpeg', 'audio/x-m4a', 'audio/mp4']"
+                    :accepted-file-types="['audio/mpeg']"
                     :drop-validation="true"
                     style-panel-layout="integrated"
                     style-load-indicator-position="center bottom"
